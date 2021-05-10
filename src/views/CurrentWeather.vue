@@ -151,7 +151,7 @@ export default {
       this.getCurrentLocation()
         .then(pos => {
           const apiKey = 'd1339026b3444f9390104039201811';
-          const baseUrl = 'http://api.weatherapi.com/v1/forecast.json';
+          const baseUrl = 'https://api.weatherapi.com/v1/forecast.json';
           const lat = pos.lat;
           const lon = pos.lon;
           const numDays = '5';
