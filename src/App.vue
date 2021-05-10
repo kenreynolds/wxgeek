@@ -1,9 +1,7 @@
 <template>
-  <div id="nav">
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
+  <div class="container">
+    <router-view/>
   </div>
-  <router-view/>
 </template>
 
 <style lang="scss">
@@ -15,16 +13,20 @@
   color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+.container {
+  max-width: 375px;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+.row {
+  &.border-secondary {
+    border-color: #e0e0e0 !important;
   }
+}
+
+body {
+  background-image: radial-gradient(
+    #fff,
+    #f5f5f5
+  );
 }
 </style>
