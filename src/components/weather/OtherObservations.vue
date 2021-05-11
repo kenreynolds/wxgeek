@@ -1,6 +1,6 @@
 <template>
 <div class="observations">
-  <div class="row border-top border-bottom border-secondary pb-1 pt-1">
+  <div class="row border-top border-bottom border-secondary ml-1 mr-1 pt-1 pb-1">
     <div class="col-6 other-obs">
       <p class="type">
         <i class="wi wi-thermometer"></i>
@@ -22,7 +22,7 @@
     </div>
   </div>
 
-  <div class="row border-bottom border-secondary pb-3">
+  <div class="row ml-1 mr-1 pb-3">
     <div class="col-6 other-obs">
       <p class="type">
         <i class="wi wi-wind-direction"></i>
@@ -63,7 +63,6 @@ export default {
 <style lang="scss" scoped>
 .observations {
   margin-top: 24px;
-  overflow: hidden;
 }
 
 .other-obs {

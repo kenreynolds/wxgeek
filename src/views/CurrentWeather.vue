@@ -45,7 +45,7 @@
         :windSpeed="currentConditions.currentWindSpeed"
       ></OtherObservations>
 
-      <div class="air-quality container mb-5">
+      <div class="air-quality container mb-2 pb-4">
         <div class="row p-1" :class="airQualityClass">
           <p>
             Air quality: <span class="value">{{ currentConditions.currentAirQuality }}</span>
@@ -53,11 +53,16 @@
         </div>
       </div>
 
+      <AstronomicalConditions
+        :sunrise="astronomyConditions.sunrise"
+        :sunset="astronomyConditions.sunset"
+      ></AstronomicalConditions>
+
       <MultiDayForecast
         v-for="forecastDay in fiveDayForecastData"
         :key="forecastDay.date_epoch"
       >
-        <div class="forecast-day row">
+        <div class="forecast-day row ml-1 mr-1">
           <p>{{ formatDate(forecastDay.date) }}</p>
 
           <div class="temperature-panel">
@@ -82,6 +87,7 @@
 <script>
 import axios from 'axios';
 import dayjs from 'dayjs';
+import AstronomicalConditions from '@/components/weather/AstronomicalConditions';
 import ForecastTemperatures from '@/components/weather/ForecastTemperatures';
 import MultiDayForecast from '@/components/weather/MultiDayForecast';
 import OtherObservations from '@/components/weather/OtherObservations';
@@ -90,6 +96,7 @@ import PageHeader from '@/components/layout/PageHeader';
 export default {
   name: 'CurrentWeather',
   components: {
+    AstronomicalConditions,
     ForecastTemperatures,
     MultiDayForecast,
     OtherObservations,
@@ -102,8 +109,6 @@ export default {
       isLoading: true,
       fiveDayForecastData: [],
       astronomyConditions: {
-        moonrise: '',
-        moonset: '',
         sunrise: '',
         sunset: '',
       },
@@ -199,8 +204,6 @@ export default {
                 }
 
                 this.astronomyConditions = {
-                  moonrise: astronomicalData.moonrise,
-                  moonset: astronomicalData.moonset,
                   sunrise: astronomicalData.sunrise,
                   sunset: astronomicalData.sunset,
                 };
@@ -279,6 +282,7 @@ export default {
 
   .air-quality {
     color: white;
+    width: 322px;
 
     > .row {
       border-radius: 0 0 4px 4px;
@@ -374,7 +378,7 @@ export default {
   .forecast-day {
     border-bottom: 1px solid #dee2e6;
     justify-content: space-between;
-    padding: 14px 15px 10px 15px;
+    padding: 14px 4px 10px 4px;
 
     > .temperature-panel {
       display: flex;
