@@ -217,10 +217,7 @@ export default {
                   }
                 }
 
-                this.hourlyForecastData = hourlyData.slice(0, 3).map(hourData => {
-                  console.log(hourData);
-                  return hourData;
-                });
+                this.hourlyForecastData = hourlyData.slice(0, 3).map(hourData => hourData);
 
                 if (currentWeather.is_day === 1) {
                   this.isDaytime = true;
