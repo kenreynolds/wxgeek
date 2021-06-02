@@ -10,17 +10,27 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #2c3e50;
+  color: #fff;
 }
 
 .container {
-  max-width: 375px;
+  background-color: #14B9FA;
+  padding: 0 !important;
 }
 
 .row {
   &.border-secondary {
     border-color: #e0e0e0 !important;
   }
+}
+
+.section-heading {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.section-subtext {
+  font-size: 0.875rem;
 }
 
 body {

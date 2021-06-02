@@ -1,48 +1,39 @@
 <template>
 <div class="observations">
-  <div class="row border-top border-bottom border-secondary ml-1 mr-1 pt-1 pb-1">
-    <div class="col-6 other-obs">
-      <p class="type">
-        <i class="wi wi-thermometer"></i>
-        Feels like
-      </p>
+  <div class="row pt-3">
+    <div class="col other-obs">
+      <i class="wi wi-humidity"></i>
       <p class="value">
-        {{ feelsLike }}<i class="wi wi-degrees"></i>
+        {{ humidity }} %
+      </p>
+      <p class="type">
+        Humidity
       </p>
     </div>
 
     <div class="col other-obs">
-      <p class="type">
-        <i class="wi wi-humidity"></i>
-        Humidity
-      </p>
+      <i class="wi wi-thermometer"></i>
       <p class="value">
-        {{ humidity }} %
+        {{ feelsLike }}<i class="wi wi-degrees"></i>
+      </p>
+      <p class="type">
+        Feels like
+      </p>
+    </div>
+
+    <div class="col other-obs">
+      <i class="wi wi-strong-wind"></i>
+      <p class="value">
+        {{ windSpeed }} mph
+      </p>
+      <p class="type">
+        Wind
       </p>
     </div>
   </div>
 
-  <div class="row ml-1 mr-1 pb-3">
-    <div class="col-6 other-obs">
-      <p class="type">
-        <i class="wi wi-wind-direction"></i>
-        Wind
-      </p>
-      <p class="value">
-        <span class="wind-direction">{{ windDirection }}</span>
-        {{ windSpeed }} mph
-      </p>
-    </div>
-
-    <div class="col other-obs">
-      <p class="type">
-        <i class="wi wi-barometer"></i>
-        Pressure
-      </p>
-      <p class="value">
-        {{ pressure }} mb
-      </p>
-    </div>
+  <div class="row justify-content-center pt-3">
+    <i class="fas fa-chevron-circle-down"></i>
   </div>
 </div>
 </template>
@@ -54,7 +45,6 @@ export default {
     'feelsLike',
     'humidity',
     'pressure',
-    'windDirection',
     'windSpeed'
   ],
 };
@@ -62,39 +52,44 @@ export default {
 
 <style lang="scss" scoped>
 .observations {
-  margin-top: 24px;
+  border-top: 1px solid #e0e0e0;
 }
 
 .other-obs {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
   flex-direction: column;
-  margin-left: 1em;
   padding-left: 0;
   padding-right: 0;
   padding-top: 10px;
 
   > .type,
   > .value {
-    padding: .25rem 0;
+    font-size: 0.875rem;
   }
 
   > .type {
     color: #9e9e9e;
     font-weight: 400;
-
-    > .wi {
-      margin-right: .25rem;
-    }
   }
 
   > .value {
-    font-size: 1.25rem;
     font-weight: 700;
+    padding-top: .5rem;
+
+    > .wi-degrees {
+      font-size: 1rem;
+    }
 
     > .wind-direction {
       margin-right: 4px;
     }
+  }
+
+  > .wi {
+    color: #9e9e9e;
+    font-size: 1rem;
+    margin-right: .25rem;
   }
 
   > p {

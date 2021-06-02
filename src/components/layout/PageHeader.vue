@@ -1,40 +1,57 @@
 <template>
   <div class="page-header">
-    <p class="time mb-0">{{ time }}</p>
-    <p class="location">{{ city }}, {{ state }}</p>
+    <a class="settings-button" role="button" href="#">
+      <i class="fas fa-cog"></i>
+    </a>
+    <p class="location">
+      <i class="fas fa-location-arrow"></i>{{ city }}, {{ state }}
+    </p>
+    <a class="site-menu" role="button" href="#">
+      <i class="fas fa-ellipsis-v fa-sm"></i>
+    </a>
   </div>
 </template>
 
 <script>
 export default {
   name: 'PageHeader',
-  props: ['city', 'state', 'time'],
+  props: ['city', 'state'],
 };
 </script>
 
 <style lang="scss" scoped>
+.location,
 .page-header {
-  align-items: flex-start;
+  align-items: center;
   display: flex;
-  flex-direction: column;
-  margin: 1rem 0 0 0;
-  padding: 0;
+}
+
+.page-header {
+  justify-content: space-between;
+
+  > .fa-cog,
+  > .fa-ellipsis-v {
+    cursor: pointer;
+  }
+
+  > .settings-button,
+  > .site-menu {
+    color: #757575;
+  }
 
   > .location {
     color: #212121;
     font-size: 1rem;
     font-weight: 300;
     margin-bottom: 0;
-  }
-
-  > .time {
-    color: #757575;
-    font-size: 1.5rem;
-  }
-
-  > p {
     margin-left: 0;
     margin-right: 0;
+
+    > .fa-location-arrow {
+      color: #757575;
+      font-size: 0.625rem;
+      margin-right: 4px;
+    }
   }
 }
 </style>
