@@ -13,20 +13,13 @@
         :state="currentLocation.currentState"
       ></PageHeader>
 
-      <div class="conditions row">
-        <img
-          :src="currentConditions.currentSkyConditionIcon"
-          :alt="currentConditions.currentSkyCondition"
-        >
-        <div class="temperature">
-          {{ currentConditions.currentTemp }}<i class="wi wi-degrees"></i>
-        </div>
-      </div>
-
-      <div class="observed-condition">
-        <p>{{ currentConditions.currentSkyCondition }}</p>
-        <p class="current-date">{{ currentConditions.currentDate }}</p>
-      </div>
+      <CurrentConditions
+        :currentDate="currentConditions.currentDate"
+        :currentSkyCondition="currentConditions.currentSkyCondition"
+        :currentSkyConditionIcon="currentConditions.currentSkyConditionIcon"
+        :currentTemperature="currentConditions.currentTemp"
+        :isDay="currentConditions.isDay"
+      ></CurrentConditions>
 
       <AstronomicalConditions
         :sunrise="astronomyConditions.sunrise"
@@ -36,46 +29,25 @@
       <OtherObservations
         :feelsLike="currentConditions.currentFeelsLike"
         :humidity="currentConditions.currentHumidity"
-        :pressure="currentConditions.currentPressure"
         :windSpeed="currentConditions.currentWindSpeed"
       ></OtherObservations>
     </section>
 
-    <section class="air-quality container mb-2 pb-4">
-      <div class="row justify-content-around p-1 pt-2 pb-2" :class="airQualityClass">
-        <p>
-          UV Index: <span class="value">{{ currentConditions.currentUVIndex }}</span>
-        </p>
-        <p>
-          Air quality: <span class="value">{{ currentConditions.currentAirQuality }}</span>
-        </p>
-      </div>
-    </section>
+    <AirQuality
+      :airQuality="currentAirQualityConditions.currentAirQuality"
+      :uvIndex="currentAirQualityConditions.currentUVIndex"
+    ></AirQuality>
 
-    <section class="section-header row">
+    <div class="section-header row">
       <p class="section-heading">Today</p>
       <p class="section-subtext">
         5 day forecast <i class="fas fa-angle-right"></i>
       </p>
-    </section>
+    </div>
 
-    <section class="hourly-forecast row">
-      <div
-        v-for="hourlyForecast in hourlyForecastData"
-        :key="hourlyForecast.time_epoch"
-      >
-        <div class="hour col">
-          <p class="hourly-temp">
-            {{ roundNumeral(hourlyForecast.temp_f) }}<i class="wi wi-degrees"></i>
-          </p>
-          <img
-            :src="hourlyForecast.condition.icon"
-            :alt="hourlyForecast.condition.text"
-          >
-          <p class="pt-1">{{ formatTime(hourlyForecast.time) }}</p>
-        </div>
-      </div>
-    </section>
+    <HourlyForecast
+      :hourlyForecastData="hourlyForecastData"
+    ></HourlyForecast>
 
     <!-- <MultiDayForecast
       v-for="forecastDay in fiveDayForecastData"
@@ -105,7 +77,11 @@
 <script>
 import axios from 'axios';
 import dayjs from 'dayjs';
+
+import AirQuality from '@/components/weather/AirQuality';
 import AstronomicalConditions from '@/components/weather/AstronomicalConditions';
+import CurrentConditions from '@/components/weather/CurrentConditions';
+import HourlyForecast from '@/components/weather/HourlyForecast';
 import OtherObservations from '@/components/weather/OtherObservations';
 import PageHeader from '@/components/layout/PageHeader';
 
@@ -118,11 +94,13 @@ import PageHeader from '@/components/layout/PageHeader';
  * 3. Add animation and micro-interactions
  * 4. Refactor for cleaner code as needed
  */
-
 export default {
   name: 'CurrentWeather',
   components: {
+    AirQuality,
     AstronomicalConditions,
+    CurrentConditions,
+    HourlyForecast,
     OtherObservations,
     PageHeader,
   },
@@ -137,8 +115,11 @@ export default {
         sunrise: '',
         sunset: '',
       },
-      currentConditions: {
+      currentAirQualityConditions: {
         currentAirQuality: '',
+        currentUVIndex: 0,
+      },
+      currentConditions: {
         currentDate: '',
         currentFeelsLike: 0,
         currentHumidity: 0,
@@ -146,8 +127,8 @@ export default {
         currentSkyCondition: '',
         currentSkyConditionIcon: '',
         currentTemp: 0,
-        currentUVIndex: 0,
         currentWindSpeed: 0,
+        isDay: 0,
       },
       currentLocation: {
         currentCity: '',
@@ -378,8 +359,11 @@ export default {
                   sunrise: astronomicalData.sunrise,
                   sunset: astronomicalData.sunset,
                 };
-                this.currentConditions = {
+                this.currentAirQualityConditions = {
                   currentAirQuality: airQuality,
+                  currentUVIndex: currentWeather.uv,
+                };
+                this.currentConditions = {
                   currentDate: dayjs(currentLocation.localtime).format('dddd, MMMM D'),
                   currentFeelsLike: Math.round(currentWeather.feelslike_f),
                   currentHumidity: currentWeather.humidity,
@@ -387,8 +371,8 @@ export default {
                   currentSkyCondition: currentWeather.condition.text,
                   currentSkyConditionIcon: conditionIcon,
                   currentTemp: Math.round(currentWeather.temp_f),
-                  currentUVIndex: currentWeather.uv,
                   currentWindSpeed: Math.round(currentWeather.wind_mph),
+                  isDay: currentWeather.is_day,
                 };
                 this.currentLocation = {
                   currentCity: currentLocation.name,
@@ -403,17 +387,6 @@ export default {
     },
     roundNumeral(num) {
       return Math.round(num);
-    }
-  },
-  computed: {
-    airQualityClass() {
-      return {
-        good: this.currentConditions.currentAirQuality === 'Good',
-        moderate: this.currentConditions.currentAirQuality === 'Moderate',
-        unhealthy: this.currentConditions.currentAirQuality === 'Unhealthy' || this.currentConditions.currentAirQuality === 'Unhealthy (sensitive groups)',
-        'very-unhealthy': this.currentConditions.currentAirQuality === 'Very Unhealthy',
-        hazardous: this.currentConditions.currentAirQuality === 'Hazardous',
-      }
     },
   },
   mounted() {
@@ -440,85 +413,9 @@ export default {
     justify-content: center;
     left: 15px;
     margin: 0 -15px 0 -15px;
-    opacity: 0.95;
     position: absolute;
     width: 100%;
     z-index: 100;
-  }
-
-  .air-quality {
-    color: white;
-    width: 85%;
-
-    > .row {
-      border-radius: 0 0 8px 8px;
-      justify-content: center;
-    }
-
-    .good,
-    .moderate,
-    .unhealthy-sensitive,
-    .unhealthy,
-    .very-unhealthy,
-    .hazardous {
-      border: 2px solid rgba(255, 255, 255, 0.45);
-      border-top: none;
-    }
-
-    .good {
-      background-color: #4CAF50;
-    }
-
-    .moderate {
-      background-color: #FFEB3B;
-    }
-
-    .unhealthy {
-      background-color: #FF9800;
-    }
-
-    .very-unhealthy {
-      background-color: #FF5722;
-    }
-
-    .hazardous {
-      background-color: #F44336;
-    }
-
-    p {
-      font-size: 0.875rem;
-      margin: 0;
-
-      > .value {
-        font-weight: 700;
-      }
-    }
-  }
-
-  .conditions {
-    align-items: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 24px;
-    padding: 0 16px;
-
-    > .temperature {
-      font-size: 5rem;
-      font-weight: 400;
-      letter-spacing: -5px;
-      margin-bottom: 0;
-      margin-left: 12px;
-
-      > .wi-degrees {
-        margin-left: 4px;
-      }
-    }
-
-    > img {
-      margin-left: 12px;
-      width: 100px;
-    }
   }
 
   .forecast-day {
@@ -546,42 +443,6 @@ export default {
     }
   }
 
-  .observed-condition {
-    align-items: center;
-    color: #9e9e9e;
-    display: flex;
-    flex-direction: column;
-    font-size: 1.375rem;
-    justify-content: center;
-    margin-top: -24px;
-
-    .current-date {
-      font-size: 1rem;
-      margin-top: -12px;
-      padding: 0;
-    }
-
-    > img {
-      height: 48px;
-      margin-right: 5px;
-      width: 48px;
-    }
-
-    > p {
-      height: 48px;
-      margin-bottom: 0;
-      padding-top: 5px;
-    }
-  }
-
-  .observation-time {
-    display: flex;
-    font-size: 2rem;
-    font-weight: 300;
-    justify-content: center;
-    text-transform: lowercase;
-  }
-
   .panel {
     height: 100%;
 
@@ -597,37 +458,6 @@ export default {
       padding: 15px;
       position: relative;
       width: 100%;
-    }
-
-    .hourly-forecast {
-      color: #757575;
-      justify-content: space-around;
-      margin: 0 8px;
-
-      .hour {
-        background-color: rgba(255, 255, 255, 0.6);
-        border: 1px solid rgba(255,255, 255, 0.8);
-        border-radius: 8px;
-        padding: 12px;
-
-        .hourly-temp {
-          font-size: 1rem;
-          font-weight: 700;
-
-          > .wi-degrees {
-            margin-left: 2px;
-          }
-        }
-
-        > img {
-          width: 35px;
-        }
-
-        > p {
-          font-size: 0.875rem;
-          margin: 0;
-        }
-      }
     }
 
     > .section-header {

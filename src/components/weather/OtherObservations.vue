@@ -41,12 +41,20 @@
 <script>
 export default {
   name: 'OtherObservations',
-  props: [
-    'feelsLike',
-    'humidity',
-    'pressure',
-    'windSpeed'
-  ],
+  props: {
+    feelsLike: {
+      type: Number,
+      required: true,
+    },
+    humidity: {
+      type: Number,
+      required: true,
+    },
+    windSpeed: {
+      type: Number,
+      required: true,
+    }
+  },
 };
 </script>
 

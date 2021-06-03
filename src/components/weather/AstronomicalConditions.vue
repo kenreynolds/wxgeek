@@ -14,7 +14,16 @@
 <script>
 export default {
   name: 'AstronomicalConditions',
-  props: ['moonrise', 'moonset', 'sunrise', 'sunset'],
+  props: {
+    sunrise: {
+      type: String,
+      required: true,
+    },
+    sunset: {
+      type: String,
+      required: true,
+    }
+  },
 }
 </script>
 

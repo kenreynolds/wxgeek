@@ -15,7 +15,16 @@
 <script>
 export default {
   name: 'PageHeader',
-  props: ['city', 'state'],
+  props: {
+    city: {
+      type: String,
+      required: true,
+    },
+    state: {
+      type: String,
+      required: true,
+    }
+  },
 };
 </script>
 
