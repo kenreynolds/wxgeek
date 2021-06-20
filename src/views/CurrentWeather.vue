@@ -185,11 +185,9 @@
                   this.isLoading = false;
                   this.fiveDayForecastData = response.data.forecast.forecastday;
 
-                  /** TODO:
-                   * Need to expand this logic to account for midnight and later.
-                   */
-                  let forecastHours = response.data.forecast.forecastday[0].hour.filter(hour => hour);
-                  // forecastHours.push(response.data.forecast.forecastday[1].hour.filter(hour => hour));
+                  let dayOneForecastHours = response.data.forecast.forecastday[0].hour.filter(dayOneHour => dayOneHour);
+                  let dayTwoForecastHours = response.data.forecast.forecastday[1].hour.filter(dayTwoHour => dayTwoHour);
+                  let forecastHours = dayOneForecastHours.concat(dayTwoForecastHours);
 
                   forecastHours
                     .filter(hour => hour.time)
@@ -198,6 +196,15 @@
                   for (let i = 0; i < forecastHours.length; i++) {
                     if (dayjs(forecastHours[i].time).format('HH') >= currentHour) {
                       hourlyData.push(forecastHours[i]);
+                    }
+
+                    if (dayjs(forecastHours[i].time).format('HH') >= currentHour && parseInt(currentHour) + 2 === 24) {
+                      hourlyData.push(forecastHours[24]);
+                    }
+
+                    if (dayjs(forecastHours[i].time).format('HH') >= currentHour && parseInt(currentHour) + 1 === 24) {
+                      hourlyData.push(forecastHours[24]);
+                      hourlyData.push(forecastHours[25]);
                     }
                   }
 
