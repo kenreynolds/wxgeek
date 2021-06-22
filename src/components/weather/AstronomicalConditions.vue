@@ -44,6 +44,14 @@
       padding-right: 8px;
       width: 92px;
 
+      &:first-child {
+        padding-left: 0;
+      }
+
+      &:last-child {
+        padding-right: 0;
+      }
+
       > .value {
         color: #9e9e9e;
         font-weight: 700;
