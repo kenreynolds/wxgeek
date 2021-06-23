@@ -199,8 +199,9 @@
                     }
 
                     if (dayjs(forecastHours[i].time).format('HH') >= currentHour && parseInt(currentHour) + 2 === 24) {
-                      hourlyData.push(forecastHours[i]);
+                      hourlyData.push(forecastHours[23]);
                       hourlyData.push(forecastHours[24]);
+                      hourlyData.push(forecastHours[25]);
                     }
 
                     if (dayjs(forecastHours[i].time).format('HH') >= currentHour && parseInt(currentHour) + 1 === 24) {
