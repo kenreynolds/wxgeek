@@ -12,12 +12,12 @@
       </div>
 
       <div class="col other-obs">
-        <i class="wi wi-thermometer"></i>
+        <i class="wi wi-barometer"></i>
         <p class="value">
-          {{ feelsLike }}<i class="wi wi-degrees"></i>
+          {{ pressure }} in.
         </p>
         <p class="type">
-          Feels like
+          Pressure
         </p>
       </div>
 
@@ -42,7 +42,7 @@
   export default {
     name: 'OtherObservations',
     props: {
-      feelsLike: {
+      pressure: {
         type: Number,
         required: true,
       },

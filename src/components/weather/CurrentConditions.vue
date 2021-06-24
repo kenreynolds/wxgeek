@@ -7,6 +7,13 @@
     <div class="temperature">
       {{ currentTemperature }}<i class="wi wi-degrees"></i>
     </div>
+    <div class="feels-like">
+      <p>
+        Feels like: <span class="value">
+          {{ currentFeelsLike }}<i class="wi wi-degrees"></i>
+        </span>
+      </p>
+    </div>
   </div>
 
   <div class="sky-condition">
@@ -21,6 +28,10 @@
     props: {
       currentDate: {
         type: String,
+        required: true,
+      },
+      currentFeelsLike: {
+        type: Number,
         required: true,
       },
       currentSkyCondition: {
@@ -44,6 +55,11 @@
 </script>
 
 <style lang="scss" scoped>
+  .feels-like,
+  .sky-condition {
+    color: #9e9e9e;
+  }
+
   .conditions {
     align-items: center;
     display: flex;
@@ -51,6 +67,14 @@
     justify-content: center;
     margin-top: 24px;
     padding: 0 16px;
+
+    > .feels-like {
+      margin-top: -16px;
+
+      .value {
+        font-weight: 700;
+      }
+    }
 
     > .temperature {
       font-size: 5rem;
@@ -72,12 +96,11 @@
 
   .sky-condition {
     align-items: center;
-    color: #9e9e9e;
     display: flex;
     flex-direction: column;
     font-size: 1.375rem;
     justify-content: center;
-    margin: -24px auto 0 auto;
+    margin: -8px auto 0 auto;
     max-width: 325px;
 
     .current-date {

@@ -15,6 +15,7 @@
 
         <CurrentConditions
           :currentDate="currentConditions.currentDate"
+          :currentFeelsLike="currentConditions.currentFeelsLike"
           :currentSkyCondition="currentConditions.currentSkyCondition"
           :currentSkyConditionIcon="currentConditions.currentSkyConditionIcon"
           :currentTemperature="currentConditions.currentTemp"
@@ -27,7 +28,7 @@
         ></AstronomicalConditions>
 
         <OtherObservations
-          :feelsLike="currentConditions.currentFeelsLike"
+          :pressure="currentConditions.currentPressure"
           :humidity="currentConditions.currentHumidity"
           :windSpeed="currentConditions.currentWindSpeed"
         ></OtherObservations>
@@ -353,7 +354,7 @@
                     currentDate: dayjs(currentLocation.localtime).format('dddd, MMMM D'),
                     currentFeelsLike: Math.round(currentWeather.feelslike_f),
                     currentHumidity: currentWeather.humidity,
-                    currentPressure: currentWeather.pressure_mb,
+                    currentPressure: currentWeather.pressure_in,
                     currentSkyCondition: currentWeather.condition.text,
                     currentSkyConditionIcon: conditionIcon,
                     currentTemp: Math.round(currentWeather.temp_f),
