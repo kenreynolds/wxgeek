@@ -116,7 +116,7 @@
           sunset: '',
         },
         currentAirQualityConditions: {
-          currentAirQuality: '',
+          currentAirQuality: 0,
           currentUVIndex: 0,
         },
         currentConditions: {
@@ -136,7 +136,6 @@
         },
       };
     },
-
     methods: {
       formatDate(date) {
         return dayjs(date).format('ddd, M/D');
@@ -177,7 +176,6 @@
                   const forecastWeather = response.data.forecast.forecastday[0];
                   const airQualityIndex = currentWeather.air_quality;
                   const astronomicalData = forecastWeather.astro;
-                  let airQuality = '';
                   let conditionIcon = '';
                   let hourlyData = [];
 
@@ -343,35 +341,12 @@
                     }
                   }
 
-                  switch (airQualityIndex["us-epa-index"]) {
-                    case 1:
-                      airQuality = 'Good';
-                      break;
-                    case 2:
-                      airQuality = 'Moderate';
-                      break;
-                    case 3:
-                      airQuality = 'Unhealthy (sensitive groups)';
-                      break;
-                    case 4:
-                      airQuality = 'Unhealthy';
-                      break;
-                    case 5:
-                      airQuality = 'Very Unhealthy';
-                      break;
-                    case 6:
-                      airQuality = 'Hazardous';
-                      break;
-                    default:
-                      break;
-                  }
-
                   this.astronomyConditions = {
                     sunrise: astronomicalData.sunrise,
                     sunset: astronomicalData.sunset,
                   };
                   this.currentAirQualityConditions = {
-                    currentAirQuality: airQuality,
+                    currentAirQuality: airQualityIndex["us-epa-index"],
                     currentUVIndex: currentWeather.uv,
                   };
                   this.currentConditions = {
@@ -459,7 +434,6 @@
 
       > .current-conditions {
         background-color: #fff;
-        border-radius: 0 0 6px 6px;
         box-shadow: 0 4px 8px rgba(51, 51, 51, 0.5);
         color: #757575;
         display: flex;
@@ -469,6 +443,7 @@
         padding: 15px;
         position: relative;
         width: 100%;
+        z-index: 10;
       }
 
       > .section-header {

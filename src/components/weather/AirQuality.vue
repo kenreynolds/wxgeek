@@ -1,12 +1,16 @@
 <template>
   <section class="air-quality container mb-2 pb-4">
-    <div class="row justify-content-around pt-2 pb-2" :class="airQualityClass">
-      <p>
-        UV Index: <span class="value">{{ uvIndex }}</span>
-      </p>
-      <p>
-        Air quality: <span class="value">{{ airQuality }}</span>
-      </p>
+    <div class="row">
+      <div class="col-4 p-0 pt-1 pb-1" :class="uvIndexClass">
+        <p>
+          UV Index: <span class="value">{{ uvIndex }}</span>
+        </p>
+      </div>
+      <div class="col-8 p-0 pt-1 pb-1" :class="airQualityClass">
+        <p>
+          Air quality: <span class="value">{{ airQualityText() }}</span>
+        </p>
+      </div>
     </div>
   </section>
 </template>
@@ -16,7 +20,7 @@
     name: 'AirQuality',
     props: {
       airQuality: {
-        type: String,
+        type: Number,
         required: true,
       },
       uvIndex: {
@@ -24,18 +28,45 @@
         required: true,
       }
     },
+    methods: {
+      airQualityText() {
+        switch (this.airQuality) {
+          case 1:
+            return 'Good';
+          case 2:
+            return 'Moderate';
+          case 3:
+          case 4:
+            return 'Unhealthy';
+          case 5:
+            return 'Very Unhealthy';
+          case 6:
+            return 'Hazardous';
+          default:
+            break;
+        }
+      },
+    },
     computed: {
       airQualityClass() {
         return {
-          good: this.airQuality === 'Good',
-          moderate: this.airQuality === 'Moderate',
-          unhealthy: this.airQuality === 'Unhealthy'
-            || this.airQuality === 'Unhealthy (sensitive groups)',
-          'very-unhealthy': this.airQuality === 'Very Unhealthy',
-          hazardous: this.airQuality === 'Hazardous',
+          good: this.airQuality === 1,
+          moderate: this.airQuality === 2,
+          'unhealthy-sensitive': this.airQuality === 3,
+          unhealthy: this.airQuality === 4,
+          'very-unhealthy': this.airQuality === 5,
+          hazardous: this.airQuality === 6,
         }
       },
-    }
+      uvIndexClass() {
+        return {
+          low: this.uvIndex >= 0 && this.uvIndex < 3,
+          moderate: this.uvIndex >= 3 && this.uvIndex < 6,
+          high: this.uvIndex >= 6 && this.uvIndex < 8,
+          'very-high': this.uvIndex >= 8 && this.uvIndex < 11,
+        }
+      }
+    },
   }
 </script>
 
@@ -45,40 +76,66 @@
 
     > .row {
       border-radius: 0 0 8px 8px;
+    }
+
+    > .row {
+      border: 2px solid rgba(255, 255, 255, 1);
+      border-top: none;
+      flex-direction: row;
       justify-content: center;
+      margin: 0 auto;
+      max-width: 325px;
+      min-width: 275px;
+      position: relative;
+      z-index: 0;
+
+      > .col-4 {
+        border-right: 2px solid rgba(255, 255, 255, 1);
+      }
     }
 
     .good,
     .moderate,
-    .unhealthy-sensitive,
     .unhealthy,
+    .unhealthy-sensitive,
     .very-unhealthy,
     .hazardous {
-      border: 2px solid rgba(255, 255, 255, 0.45);
-      border-top: none;
-      margin: 0 auto;
-      max-width: 325px;
-      min-width: 275px;
+      border-radius: 0 0 8px 0;
     }
 
-    .good {
+    .low,
+    .moderate,
+    .high,
+    .very-high {
+      border-radius: 0 0 0 8px;
+    }
+
+    .good,
+    .low {
       background-color: #4CAF50;
+    }
+
+    .high,
+    .unhealthy-sensitive {
+      background-color: #FF9800;
+    }
+
+    .unhealthy,
+    .very-high {
+      background-color: #F44336;
     }
 
     .moderate {
       background-color: #FFEB3B;
-    }
-
-    .unhealthy {
-      background-color: #FF9800;
+      color: #424242;
     }
 
     .very-unhealthy {
-      background-color: #FF5722;
+      background-color: #9C27B0;
     }
 
     .hazardous {
-      background-color: #F44336;
+      background-color: #880E4F;
     }
 
     p {
