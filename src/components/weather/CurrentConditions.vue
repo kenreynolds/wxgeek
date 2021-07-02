@@ -100,7 +100,7 @@
     flex-direction: column;
     font-size: 1.375rem;
     justify-content: center;
-    margin: -8px auto 0 auto;
+    margin: 0 auto;
     max-width: 325px;
 
     .current-date {
@@ -120,5 +120,23 @@
       margin-bottom: 0;
       padding-top: 5px;
     }
+  }
+
+  @media
+    screen and (max-width: 320px),
+    screen and (max-height: 568px) {
+      .sky-condition {
+        margin-top: 0;
+      }
+
+      .conditions {
+        > .temperature {
+          font-size: 4.5rem;
+        }
+
+        > img {
+          width: 90px;
+        }
+      }
   }
 </style>

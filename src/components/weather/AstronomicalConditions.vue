@@ -63,4 +63,12 @@
       }
     }
   }
+
+  @media
+    screen and (max-width: 320px),
+    screen and (max-height: 568px) {
+      .sun-data {
+        padding-top: 24px;
+      }
+  }
 </style>

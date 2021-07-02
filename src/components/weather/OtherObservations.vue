@@ -33,7 +33,7 @@
     </div>
 
     <div class="row justify-content-center pt-3">
-      <i class="fas fa-chevron-circle-down"></i>
+      <i class="fas fa-chevron-circle-down fa-sm"></i>
     </div>
   </div>
 </template>
