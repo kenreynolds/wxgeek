@@ -88,6 +88,11 @@
     },
     data() {
       return {
+        appId: `&appid=${process.env.VUE_APP_OPENWEATHERMAP_API_KEY}`,
+        baseUrl: process.env.VUE_APP_OPENWEATHERMAP_BASE_URL,
+        airPollutionUrlVar: process.env.VUE_APP_AIR_POLLUTION_URL,
+        oneCallWeatherUrlVar: process.env.VUE_APP_ONE_CALL_WEATHER_URL,
+        reverseGeocodeUrlVar: process.env.VUE_APP_REVERSE_GEOCODE_URL,
         error: null,
         isDaytime: false,
         isLoading: true,
@@ -137,14 +142,11 @@
       getWeatherData() {
         this.getCurrentLocation()
           .then(pos => {
-            // Setup environment variables for API key and URLs:
-            const apiKey = '1234567890';
-            const baseUrl = 'https://api.openweathermap.org/';
             const lat = pos.lat;
             const lon = pos.lon;
-            const airPollutionUrl = `${baseUrl}data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
-            const oneCallWeatherUrl = `${baseUrl}data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=imperial&appid=${apiKey}`;
-            const reverseGeocodeUrl = `${baseUrl}geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+            const airPollutionUrl = `${this.baseUrl}${this.airPollutionUrlVar}?lat=${lat}&lon=${lon}${this.appId}`;
+            const oneCallWeatherUrl = `${this.baseUrl}${this.oneCallWeatherUrlVar}?lat=${lat}&lon=${lon}&exclude=minutely&units=imperial${this.appId}`;
+            const reverseGeocodeUrl = `${this.baseUrl}${this.reverseGeocodeUrlVar}?lat=${lat}&lon=${lon}${this.appId}`;
 
             axios.all([
               axios.get(reverseGeocodeUrl),
