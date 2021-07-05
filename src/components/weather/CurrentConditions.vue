@@ -1,24 +1,24 @@
 <template>
   <div class="conditions row">
     <img
-      :src="currentSkyConditionIcon"
-      :alt="currentSkyCondition"
+      :src="skyConditionIcon"
+      :alt="skyConditionDescription"
     >
     <div class="temperature">
-      {{ currentTemperature }}<i class="wi wi-degrees"></i>
+      {{ temperature }}<i class="wi wi-degrees"></i>
     </div>
     <div class="feels-like">
       <p>
         Feels like: <span class="value">
-          {{ currentFeelsLike }}<i class="wi wi-degrees"></i>
+          {{ feelsLike }}<i class="wi wi-degrees"></i>
         </span>
       </p>
     </div>
   </div>
 
   <div class="sky-condition">
-    <p>{{ currentSkyCondition }}</p>
-    <p class="current-date">{{ currentDate }}</p>
+    <p>{{ skyConditionText }}</p>
+    <p class="current-date">{{ date }}</p>
   </div>
 </template>
 
@@ -26,30 +26,30 @@
   export default {
     name: 'CurrentConditions',
     props: {
-      currentDate: {
+      date: {
         type: String,
         required: true,
       },
-      currentFeelsLike: {
+      feelsLike: {
         type: Number,
         required: true,
       },
-      currentSkyCondition: {
+      skyConditionDescription: {
         type: String,
         required: true,
       },
-      currentSkyConditionIcon: {
+      skyConditionText: {
         type: String,
         required: true,
       },
-      currentTemperature: {
+      skyConditionIcon: {
+        type: String,
+        required: true,
+      },
+      temperature: {
         type: Number,
         required: true,
       },
-      isDay: {
-        type: Number,
-        required: true,
-      }
     },
   }
 </script>

@@ -6,13 +6,13 @@
     >
       <div class="hour col">
         <p class="hourly-temp">
-          {{ roundNumeral(hourlyForecast.temp_f) }}<i class="wi wi-degrees"></i>
+          {{ roundNumeral(hourlyForecast.temp) }}<i class="wi wi-degrees"></i>
         </p>
         <img
-          :src="hourlyForecast.condition.icon"
-          :alt="hourlyForecast.condition.text"
+          :src="displayIcon(hourlyForecast.weather[0].icon)"
+          :alt="hourlyForecast.weather[0].description"
         >
-        <p class="pt-1">{{ formatTime(hourlyForecast.time) }}</p>
+        <p class="pt-1">{{ formatTime(hourlyForecast.dt) }}</p>
       </div>
     </div>
   </section>
@@ -20,6 +20,9 @@
 
 <script>
   import dayjs from 'dayjs';
+  import localizedFormat from 'dayjs/plugin/localizedFormat';
+
+  dayjs.extend(localizedFormat);
 
   export default {
     name: 'HourlyForecast',
@@ -30,8 +33,11 @@
       }
     },
     methods: {
+      displayIcon(icon) {
+        return `http://openweathermap.org/img/wn/${icon}.png`;
+      },
       formatTime(time) {
-        return dayjs(time).format('h:mm A');
+        return dayjs.unix(time).format('LT');
       },
       roundNumeral(num) {
         return Math.round(num);

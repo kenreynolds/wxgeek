@@ -14,7 +14,7 @@
       <div class="col other-obs">
         <i class="wi wi-barometer"></i>
         <p class="value">
-          {{ pressure }} in.
+          {{ pressure }} mb
         </p>
         <p class="type">
           Pressure

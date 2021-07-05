@@ -9,34 +9,34 @@
     <div class="panel">
       <section class="current-conditions">
         <PageHeader
-          :city="currentLocation.currentCity"
-          :state="currentLocation.currentState"
+          :city="currentLocation.city"
+          :state="currentLocation.state"
         ></PageHeader>
 
         <CurrentConditions
-          :currentDate="currentConditions.currentDate"
-          :currentFeelsLike="currentConditions.currentFeelsLike"
-          :currentSkyCondition="currentConditions.currentSkyCondition"
-          :currentSkyConditionIcon="currentConditions.currentSkyConditionIcon"
-          :currentTemperature="currentConditions.currentTemp"
-          :isDay="currentConditions.isDay"
+          :date="currentWeather.date"
+          :feelsLike="currentWeather.feelsLike"
+          :skyConditionDescription="currentWeather.skyConditionDescription"
+          :skyConditionText="currentWeather.skyConditionText"
+          :skyConditionIcon="currentWeather.skyConditionIcon"
+          :temperature="currentWeather.temperature"
         ></CurrentConditions>
 
         <AstronomicalConditions
-          :sunrise="astronomyConditions.sunrise"
-          :sunset="astronomyConditions.sunset"
+          :sunrise="currentWeather.sunrise"
+          :sunset="currentWeather.sunset"
         ></AstronomicalConditions>
 
         <OtherObservations
-          :pressure="currentConditions.currentPressure"
-          :humidity="currentConditions.currentHumidity"
-          :windSpeed="currentConditions.currentWindSpeed"
+          :pressure="currentWeather.pressure"
+          :humidity="currentWeather.humidity"
+          :windSpeed="currentWeather.windSpeed"
         ></OtherObservations>
       </section>
 
       <AirQuality
-        :airQuality="currentAirQualityConditions.currentAirQuality"
-        :uvIndex="currentAirQualityConditions.currentUVIndex"
+        :airQuality="currentWeather.airQuality"
+        :uvIndex="currentWeather.uvIndex"
       ></AirQuality>
 
       <div class="section-header row">
@@ -49,28 +49,6 @@
       <HourlyForecast
         :hourlyForecastData="hourlyForecastData"
       ></HourlyForecast>
-
-      <!-- <MultiDayForecast
-        v-for="forecastDay in fiveDayForecastData"
-        :key="forecastDay.date_epoch"
-      >
-        <div class="forecast-day row ml-1 mr-1">
-          <p>{{ formatDate(forecastDay.date) }}</p>
-
-          <div class="temperature-panel">
-            <img
-              :src="forecastDay.day.condition.icon"
-              :alt="forecastDay.day.condition.text"
-            >
-            <p class="high-temp mb-0">
-              {{ Math.round(forecastDay.day.maxtemp_f) }}<i class="wi wi-degrees"></i>
-            </p>
-            <p class="mb-0">
-              {{ Math.round(forecastDay.day.mintemp_f) }}<i class="wi wi-degrees"></i>
-            </p>
-          </div>
-        </div>
-      </MultiDayForecast> -->
     </div>
   </div>
 </template>
@@ -78,6 +56,7 @@
 <script>
   import axios from 'axios';
   import dayjs from 'dayjs';
+  import localizedFormat from 'dayjs/plugin/localizedFormat';
 
   import AirQuality from '@/components/weather/AirQuality';
   import AstronomicalConditions from '@/components/weather/AstronomicalConditions';
@@ -85,6 +64,8 @@
   import HourlyForecast from '@/components/weather/HourlyForecast';
   import OtherObservations from '@/components/weather/OtherObservations';
   import PageHeader from '@/components/layout/PageHeader';
+
+  dayjs.extend(localizedFormat);
 
   /** TODO:
    * 1. Add placeholder views for the following:
@@ -110,30 +91,25 @@
         error: null,
         isDaytime: false,
         isLoading: true,
-        fiveDayForecastData: [],
         hourlyForecastData: [],
-        astronomyConditions: {
+        currentLocation: {
+          city: '',
+          state: '',
+        },
+        currentWeather: {
+          airQuality: 0,
+          date: '',
+          feelsLike: 0,
+          humidity: 0,
+          pressure: 0,
+          skyConditionDescription: '',
+          skyConditionText: '',
+          skyConditionIcon: '',
           sunrise: '',
           sunset: '',
-        },
-        currentAirQualityConditions: {
-          currentAirQuality: 0,
-          currentUVIndex: 0,
-        },
-        currentConditions: {
-          currentDate: '',
-          currentFeelsLike: 0,
-          currentHumidity: 0,
-          currentPressure: 0,
-          currentSkyCondition: '',
-          currentSkyConditionIcon: '',
-          currentTemp: 0,
-          currentWindSpeed: 0,
-          isDay: 0,
-        },
-        currentLocation: {
-          currentCity: '',
-          currentState: '',
+          temperature: 0,
+          uvIndex: 0,
+          windSpeed: 0,
         },
       };
     },
@@ -142,7 +118,7 @@
         return dayjs(date).format('ddd, M/D');
       },
       formatTime(time) {
-        return dayjs(time).format('h:mm A');
+        return dayjs(time).format('LT');
       },
       getCurrentLocation() {
         if (navigator.geolocation) {
@@ -161,215 +137,217 @@
       getWeatherData() {
         this.getCurrentLocation()
           .then(pos => {
-            const apiKey = 'd1339026b3444f9390104039201811';
-            const baseUrl = 'https://api.weatherapi.com/v1/forecast.json';
+            const apiKey = '5814a5304f4b7a52bdf3dfa7b8eb82f3';
+            const baseUrl = 'https://api.openweathermap.org/';
             const lat = pos.lat;
             const lon = pos.lon;
-            const numDays = '5';
+            const airPollutionUrl = `${baseUrl}data/2.5/air_pollution?lat=${lat}&lon=${lon}&appid=${apiKey}`;
+            const oneCallWeatherUrl = `${baseUrl}data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=minutely&units=imperial&appid=${apiKey}`;
+            const reverseGeocodeUrl = `${baseUrl}geo/1.0/reverse?lat=${lat}&lon=${lon}&appid=${apiKey}`;
 
-            axios
-              .get(`${baseUrl}?key=${apiKey}&q=${lat},${lon}&days=${numDays}&aqi=yes&alerts=yes`)
-              .then(response => {
-                if (response.length !== 0) {
-                  const currentHour = dayjs().format('HH');
-                  const currentLocation = response.data.location;
-                  const currentWeather = response.data.current;
-                  const forecastWeather = response.data.forecast.forecastday[0];
-                  const airQualityIndex = currentWeather.air_quality;
-                  const astronomicalData = forecastWeather.astro;
-                  let conditionIcon = '';
-                  let hourlyData = [];
+            axios.all([
+              axios.get(reverseGeocodeUrl),
+              axios.get(oneCallWeatherUrl),
+              axios.get(airPollutionUrl),
+            ])
+            .then(axios.spread((geoResponse, weatherResponse, airPollutionResponse) => {
+              if (geoResponse.length !== 0 && weatherResponse.length !== 0 && airPollutionResponse !== 0) {
+                console.log(`Current coordinates: ${lat}, ${lon}`);
+                const airPollutionData = airPollutionResponse.data.list[0];
+                const currentHour = dayjs().format('HH');
+                const currentLocationData = geoResponse.data[0];
+                const currentWeatherData = weatherResponse.data.current;
+                const currentWeatherConditionData = currentWeatherData.weather[0];
+                const hourlyWeatherData = weatherResponse.data.hourly;
+                let conditionIcon = '';
+                let hourlyData = [];
 
-                  console.log(`Current coordinates: ${lat}, ${lon}`);
-                  this.isLoading = false;
-                  this.fiveDayForecastData = response.data.forecast.forecastday;
-
-                  let dayOneForecastHours = response.data.forecast.forecastday[0].hour.filter(dayOneHour => dayOneHour);
-                  let dayTwoForecastHours = response.data.forecast.forecastday[1].hour.filter(dayTwoHour => dayTwoHour);
-                  let forecastHours = dayOneForecastHours.concat(dayTwoForecastHours);
-
-                  forecastHours
-                    .filter(hour => hour.time)
-                    .map(timeData => timeData.time);
-
-                  for (let i = 0; i < forecastHours.length; i++) {
-                    if (dayjs(forecastHours[i].time).format('HH') >= currentHour) {
-                      hourlyData.push(forecastHours[i]);
-                    }
-
-                    if (dayjs(forecastHours[i].time).format('HH') >= currentHour && parseInt(currentHour) + 2 === 24) {
-                      hourlyData.push(forecastHours[23]);
-                      hourlyData.push(forecastHours[24]);
-                      hourlyData.push(forecastHours[25]);
-                    }
-
-                    if (dayjs(forecastHours[i].time).format('HH') >= currentHour && parseInt(currentHour) + 1 === 24) {
-                      hourlyData.push(forecastHours[24]);
-                      hourlyData.push(forecastHours[25]);
-                    }
+                if (currentHour > 6 && currentHour < 20) {
+                  this.isDaytime = true;
+                  switch(currentWeatherConditionData.description) {
+                    case 'extreme rain':
+                    case 'heavy intensity rain':
+                    case 'heavy intensity shower rain':
+                    case 'heavy shower rain and drizzle':
+                    case 'light intensity shower rain':
+                    case 'light rain':
+                    case 'light rain shower':
+                    case 'moderate rain':
+                    case 'moderate or heavy rain shower':
+                    case 'moderate rain at times':
+                    case 'ragged shower rain':
+                    case 'shower rain':
+                    case 'shower rain and drizzle':
+                    case 'torrential rain shower':
+                    case 'very heavy rain':
+                      conditionIcon = require('../assets/icons/rain.png');
+                      break;
+                    case 'light thunderstorm':
+                    case 'thunderstormw with drizzle':
+                    case 'thunderstormw with heavy drizzle':
+                    case 'thunderstorm with light drizzle':
+                    case 'thunderstorm with light rain':
+                    case 'thunderstorm with heavy rain':
+                    case 'thunderstorm with rain':
+                      conditionIcon = require('../assets/icons/day_rain_thunder.png');
+                      break;
+                    case 'drizzle':
+                    case 'drizzle rain':
+                    case 'heavy intensity drizzle':
+                    case 'heavy intensity drizzle rain':
+                    case 'light intensity drizzle':
+                    case 'light intensity drizzle rain':
+                      conditionIcon = require('../assets/icons/day_rain.png');
+                      break;
+                    case 'freezing rain':
+                    case 'Light rain and snow':
+                    case 'Light shower sleet':
+                    case 'Rain and snow':
+                    case 'Shower sleet':
+                    case 'Sleet':
+                      conditionIcon = require('../assets/icons/day_sleet.png');
+                      break;
+                    case 'Light shower snow':
+                    case 'light snow':
+                    case 'Snow':
+                    case 'snow possible':
+                      conditionIcon = require('../assets/icons/day_snow.png');
+                      break;
+                    case 'heavy thunderstorm':
+                    case 'ragged thunderstorm':
+                    case 'thunderstorm':
+                      conditionIcon = require('../assets/icons/day_thunder.png');
+                      break;
+                    case 'Heavy shower snow':
+                    case 'Heavy snow':
+                      conditionIcon = require('../assets/icons/snow.png');
+                      break;
+                    case 'mist':
+                      conditionIcon = require('../assets/icons/mist.png');
+                      break;
+                    case 'overcast clouds':
+                      conditionIcon = require('../assets/icons/overcast.png');
+                      break;
+                    case 'broken clouds':
+                    case 'few clouds':
+                    case 'scattered clouds':
+                      conditionIcon = require('../assets/icons/day_partial_cloud.png');
+                      break;
+                    case 'clear sky':
+                      conditionIcon = require('../assets/icons/day_clear.png');
+                      break;
+                    default:
+                      break;
                   }
-
-                  this.hourlyForecastData = hourlyData.slice(0, 3).map(hourData => hourData);
-
-                  if (currentWeather.is_day === 1) {
-                    this.isDaytime = true;
-                    switch(currentWeather.condition.text) {
-                      case 'Heavy rain':
-                      case 'Heavy rain at times':
-                      case 'Light drizzle':
-                      case 'Light rain':
-                      case 'Light rain shower':
-                      case 'Moderate rain':
-                      case 'Moderate or heavy rain shower':
-                      case 'Moderate rain at times':
-                      case 'Torrential rain shower':
-                        conditionIcon = require('../assets/icons/rain.png');
-                        break;
-                      case 'Blizzard':
-                      case 'Blowing snow':
-                      case 'Heavy snow':
-                      case 'Light snow':
-                      case 'Light snow showers':
-                      case 'Moderate or heavy snow showers':
-                      case 'Moderate snow':
-                        conditionIcon = require('../assets/icons/snow.png');
-                        break;
-                      case 'Patchy heavy snow':
-                      case 'Patchy light snow':
-                      case 'Patchy moderate snow':
-                      case 'Patchy snow possible':
-                        conditionIcon = require('../assets/icons/day_snow.png');
-                        break;
-                      case 'Patchy light drizzle':
-                      case 'Patchy light rain':
-                      case 'Patchy rain possible':
-                        conditionIcon = require('../assets/icons/day_rain.png');
-                        break;
-                      case 'Patchy light snow with thunder':
-                        conditionIcon = require('../assets/icons/day_snow_thunder.png');
-                        break;
-                      case 'Moderate or heavy rain with thunder':
-                      case 'Patchy light rain with thunder':
-                        conditionIcon = require('../assets/icons/day_rain_thunder.png');
-                        break;
-                      case 'Cloudy':
-                        conditionIcon = require('../assets/icons/cloudy.png');
-                        break;
-                      case 'Mist':
-                        conditionIcon = require('../assets/icons/mist.png');
-                        break;
-                      case 'Moderate or heavy snow with thunder':
-                        conditionIcon = require('../assets/icons/snow_thunder.png');
-                        break;
-                      case 'Overcast':
-                        conditionIcon = require('../assets/icons/overcast.png');
-                        break;
-                      case 'Partly cloudy':
-                        conditionIcon = require('../assets/icons/day_partial_cloud.png');
-                        break;
-                      case 'Sunny':
-                        conditionIcon = require('../assets/icons/day_clear.png');
-                        break;
-                      case 'Thundery outbreaks possible':
-                        conditionIcon = require('../assets/icons/thunder.png');
-                        break;
-                      default:
-                        break;
-                    }
-                  } else {
-                    switch(currentWeather.condition.text) {
-                      case 'Heavy rain':
-                      case 'Heavy rain at times':
-                      case 'Light drizzle':
-                      case 'Light rain':
-                      case 'Light rain shower':
-                      case 'Moderate rain':
-                      case 'Moderate or heavy rain shower':
-                      case 'Moderate rain at times':
-                      case 'Torrential rain shower':
-                        conditionIcon = require('../assets/icons/rain.png');
-                        break;
-                      case 'Blizzard':
-                      case 'Blowing snow':
-                      case 'Heavy snow':
-                      case 'Light snow':
-                      case 'Light snow showers':
-                      case 'Moderate or heavy snow showers':
-                      case 'Moderate snow':
-                        conditionIcon = require('../assets/icons/snow.png');
-                        break;
-                      case 'Patchy heavy snow':
-                      case 'Patchy light snow':
-                      case 'Patchy moderate snow':
-                      case 'Patchy snow possible':
-                        conditionIcon = require('../assets/icons/night_snow.png');
-                        break;
-                      case 'Patchy light drizzle':
-                      case 'Patchy light rain':
-                      case 'Patchy rain possible':
-                        conditionIcon = require('../assets/icons/night_rain.png');
-                        break;
-                      case 'Patchy light snow with thunder':
-                        conditionIcon = require('../assets/icons/night_snow_thunder.png');
-                        break;
-                      case 'Moderate or heavy rain with thunder':
-                      case 'Patchy light rain with thunder':
-                        conditionIcon = require('../assets/icons/night_rain_thunder.png');
-                        break;
-                      case 'Clear':
-                        conditionIcon = require('../assets/icons/night_clear.png');
-                        break;
-                      case 'Cloudy':
-                        conditionIcon = require('../assets/icons/cloudy.png');
-                        break;
-                      case 'Mist':
-                        conditionIcon = require('../assets/icons/mist.png');
-                        break;
-                      case 'Moderate or heavy snow with thunder':
-                        conditionIcon = require('../assets/icons/snow_thunder.png');
-                        break;
-                      case 'Overcast':
-                        conditionIcon = require('../assets/icons/overcast.png');
-                        break;
-                      case 'Partly cloudy':
-                        conditionIcon = require('../assets/icons/night_partial_cloud.png');
-                        break;
-                      case 'Thundery outbreaks possible':
-                        conditionIcon = require('../assets/icons/thunder.png');
-                        break;
-                      default:
-                        break;
-                    }
+                } else {
+                  switch(currentWeatherConditionData.description) {
+                    case 'extreme rain':
+                    case 'heavy intensity rain':
+                    case 'heavy intensity shower rain':
+                    case 'heavy shower rain and drizzle':
+                    case 'light intensity shower rain':
+                    case 'light rain':
+                    case 'light rain shower':
+                    case 'moderate rain':
+                    case 'moderate or heavy rain shower':
+                    case 'moderate rain at times':
+                    case 'ragged shower rain':
+                    case 'shower rain':
+                    case 'shower rain and drizzle':
+                    case 'torrential rain shower':
+                    case 'very heavy rain':
+                      conditionIcon = require('../assets/icons/rain.png');
+                      break;
+                    case 'light thunderstorm':
+                    case 'thunderstormw with drizzle':
+                    case 'thunderstormw with heavy drizzle':
+                    case 'thunderstorm with light drizzle':
+                    case 'thunderstorm with light rain':
+                    case 'thunderstorm with heavy rain':
+                    case 'thunderstorm with rain':
+                      conditionIcon = require('../assets/icons/night_rain_thunder.png');
+                      break;
+                    case 'drizzle':
+                    case 'drizzle rain':
+                    case 'heavy intensity drizzle':
+                    case 'heavy intensity drizzle rain':
+                    case 'light intensity drizzle':
+                    case 'light intensity drizzle rain':
+                      conditionIcon = require('../assets/icons/night_rain.png');
+                      break;
+                    case 'freezing rain':
+                    case 'Light rain and snow':
+                    case 'Light shower sleet':
+                    case 'Rain and snow':
+                    case 'Shower sleet':
+                    case 'Sleet':
+                      conditionIcon = require('../assets/icons/night_sleet.png');
+                      break;
+                    case 'Light shower snow':
+                    case 'light snow':
+                    case 'Snow':
+                    case 'snow possible':
+                      conditionIcon = require('../assets/icons/night_snow.png');
+                      break;
+                    case 'heavy thunderstorm':
+                    case 'ragged thunderstorm':
+                    case 'thunderstorm':
+                      conditionIcon = require('../assets/icons/night_thunder.png');
+                      break;
+                    case 'Heavy shower snow':
+                    case 'Heavy snow':
+                      conditionIcon = require('../assets/icons/snow.png');
+                      break;
+                    case 'mist':
+                      conditionIcon = require('../assets/icons/mist.png');
+                      break;
+                    case 'overcast clouds':
+                      conditionIcon = require('../assets/icons/overcast.png');
+                      break;
+                    case 'broken clouds':
+                    case 'few clouds':
+                    case 'scattered clouds':
+                      conditionIcon = require('../assets/icons/night_partial_cloud.png');
+                      break;
+                    case 'clear sky':
+                      conditionIcon = require('../assets/icons/night_clear.png');
+                      break;
+                    default:
+                      break;
                   }
-
-                  this.astronomyConditions = {
-                    sunrise: astronomicalData.sunrise,
-                    sunset: astronomicalData.sunset,
-                  };
-                  this.currentAirQualityConditions = {
-                    currentAirQuality: airQualityIndex["us-epa-index"],
-                    currentUVIndex: currentWeather.uv,
-                  };
-                  this.currentConditions = {
-                    currentDate: dayjs(currentLocation.localtime).format('dddd, MMMM D'),
-                    currentFeelsLike: Math.round(currentWeather.feelslike_f),
-                    currentHumidity: currentWeather.humidity,
-                    currentPressure: currentWeather.pressure_in,
-                    currentSkyCondition: currentWeather.condition.text,
-                    currentSkyConditionIcon: conditionIcon,
-                    currentTemp: Math.round(currentWeather.temp_f),
-                    currentWindSpeed: Math.round(currentWeather.wind_mph),
-                    isDay: currentWeather.is_day,
-                  };
-                  this.currentLocation = {
-                    currentCity: currentLocation.name,
-                    currentState: currentLocation.region,
-                  };
                 }
-              }).catch(error => {
-                this.error = error;
-                console.log(this.error);
-              });
+
+                this.currentLocation = {
+                  city: currentLocationData.name,
+                  state: currentLocationData.state,
+                }
+
+                this.currentWeather = {
+                  airQuality: airPollutionData.main.aqi,
+                  date: dayjs.unix(currentWeatherData.dt).format('dddd, MMMM D'),
+                  feelsLike: Math.round(currentWeatherData.feels_like),
+                  humidity: currentWeatherData.humidity,
+                  pressure: currentWeatherData.pressure,
+                  skyConditionDescription: currentWeatherConditionData.description,
+                  skyConditionText: currentWeatherConditionData.main,
+                  skyConditionIcon: conditionIcon,
+                  sunrise: dayjs.unix(currentWeatherData.sunrise).format('LT'),
+                  sunset: dayjs.unix(currentWeatherData.sunset).format('LT'),
+                  temperature: Math.round(currentWeatherData.temp),
+                  uvIndex: Math.round(currentWeatherData.uvi),
+                  windSpeed: Math.round(currentWeatherData.wind_speed),
+                };
+
+                for (let i = 0; i < hourlyWeatherData.length; i++) {
+                  if (dayjs(hourlyWeatherData[i].dt) >= dayjs().unix()) {
+                    hourlyData.push(hourlyWeatherData[i]);
+                  }
+                }
+
+                this.hourlyForecastData = hourlyData.slice(0, 3).map(hourData => hourData);
+                this.isLoading = false;
+              }
+            }));
           });
       },
       roundNumeral(num) {

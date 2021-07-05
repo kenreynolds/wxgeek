@@ -34,14 +34,13 @@
           case 1:
             return 'Good';
           case 2:
-            return 'Moderate';
+            return 'Fair';
           case 3:
+            return 'Moderate';
           case 4:
-            return 'Unhealthy';
+            return 'Poor';
           case 5:
-            return 'Very Unhealthy';
-          case 6:
-            return 'Hazardous';
+            return 'Very Poor';
           default:
             break;
         }
@@ -50,12 +49,11 @@
     computed: {
       airQualityClass() {
         return {
-          good: this.airQuality === 1,
-          moderate: this.airQuality === 2,
-          'unhealthy-sensitive': this.airQuality === 3,
-          unhealthy: this.airQuality === 4,
-          'very-unhealthy': this.airQuality === 5,
-          hazardous: this.airQuality === 6,
+          'aqi-good': this.airQuality === 1,
+          'aqi-fair': this.airQuality === 2,
+          'aqi-moderate': this.airQuality === 3,
+          'aqi-poor': this.airQuality === 4,
+          'aqi-very-poor': this.airQuality === 5,
         }
       },
       uvIndexClass() {
@@ -94,12 +92,11 @@
       }
     }
 
-    .good,
-    .moderate,
-    .unhealthy,
-    .unhealthy-sensitive,
-    .very-unhealthy,
-    .hazardous {
+    .aqi-good,
+    .aqi-fair,
+    .aqi-moderate,
+    .aqi-poor,
+    .aqi-very-poor {
       border-radius: 0 0 8px 0;
     }
 
@@ -110,31 +107,28 @@
       border-radius: 0 0 0 8px;
     }
 
-    .good,
-    .low {
-      background-color: #4CAF50;
-    }
-
-    .high,
-    .unhealthy-sensitive {
-      background-color: #FF9800;
-    }
-
-    .unhealthy,
-    .very-high {
-      background-color: #F44336;
-    }
-
+    .aqi-fair,
     .moderate {
       background-color: #FFEB3B;
       color: #424242;
     }
 
-    .very-unhealthy {
-      background-color: #9C27B0;
+    .aqi-good,
+    .low {
+      background-color: #4CAF50;
     }
 
-    .hazardous {
+    .high,
+    .aqi-moderate {
+      background-color: #FF9800;
+    }
+
+    .aqi-poor,
+    .very-high {
+      background-color: #F44336;
+    }
+
+    .aqi-very-poor {
       background-color: #880E4F;
     }
 
