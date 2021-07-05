@@ -137,7 +137,8 @@
       getWeatherData() {
         this.getCurrentLocation()
           .then(pos => {
-            const apiKey = '5814a5304f4b7a52bdf3dfa7b8eb82f3';
+            // Setup environment variables for API key and URLs:
+            const apiKey = '1234567890';
             const baseUrl = 'https://api.openweathermap.org/';
             const lat = pos.lat;
             const lon = pos.lon;
