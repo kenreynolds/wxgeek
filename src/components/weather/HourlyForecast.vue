@@ -34,7 +34,7 @@
     },
     methods: {
       displayIcon(icon) {
-        return `https://openweathermap.org/img/wn/${icon}.png`;
+        return require(`../../assets/icons/${icon}.svg`);
       },
       formatTime(time) {
         return dayjs.unix(time).format('LT');
