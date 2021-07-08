@@ -58,10 +58,11 @@
       },
       uvIndexClass() {
         return {
-          low: this.uvIndex >= 0 && this.uvIndex < 3,
-          moderate: this.uvIndex >= 3 && this.uvIndex < 6,
-          high: this.uvIndex >= 6 && this.uvIndex < 8,
-          'very-high': this.uvIndex >= 8 && this.uvIndex < 11,
+          'uvi-low': this.uvIndex >= 0 && this.uvIndex <= 2,
+          'uvi-moderate': this.uvIndex >= 3 && this.uvIndex <= 5,
+          'uvi-high': this.uvIndex >= 6 && this.uvIndex <= 7,
+          'uvi-very-high': this.uvIndex >= 8 && this.uvIndex <= 10,
+          'uvi-extreme': this.uvIndex >= 11
         }
       }
     },
@@ -100,35 +101,36 @@
       border-radius: 0 0 8px 0;
     }
 
-    .low,
-    .moderate,
-    .high,
-    .very-high {
+    .uvi-low,
+    .uvi-moderate,
+    .uvi-high,
+    .uvi-very-high {
       border-radius: 0 0 0 8px;
     }
 
+    .aqi-good,
+    .uvi-low {
+      background-color: #4CAF50;
+    }
+
     .aqi-fair,
-    .moderate {
+    .uvi-moderate {
       background-color: #FFEB3B;
       color: #424242;
     }
 
-    .aqi-good,
-    .low {
-      background-color: #4CAF50;
-    }
-
-    .high,
-    .aqi-moderate {
+    .aqi-moderate,
+    .uvi-high {
       background-color: #FF9800;
     }
 
     .aqi-poor,
-    .very-high {
+    .uvi-very-high {
       background-color: #F44336;
     }
 
-    .aqi-very-poor {
+    .aqi-very-poor,
+    .uvi-extreme {
       background-color: #880E4F;
     }
 
