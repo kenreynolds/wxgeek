@@ -17,7 +17,7 @@
           :date="currentWeather.date"
           :feelsLike="currentWeather.feelsLike"
           :skyConditionDescription="currentWeather.skyConditionDescription"
-          :skyConditionText="currentWeather.skyConditionText"
+          :skyConditionText="currentWeather.skyConditionDescription"
           :skyConditionIcon="currentWeather.skyConditionIcon"
           :temperature="currentWeather.temperature"
         ></CurrentConditions>
@@ -219,7 +219,7 @@
                     case 'heavy thunderstorm':
                     case 'ragged thunderstorm':
                     case 'thunderstorm':
-                      conditionIcon = require('../assets/icons/day_thunder.png');
+                      conditionIcon = require('../assets/icons/thunder.png');
                       break;
                     case 'Heavy shower snow':
                     case 'Heavy snow':
@@ -295,7 +295,7 @@
                     case 'heavy thunderstorm':
                     case 'ragged thunderstorm':
                     case 'thunderstorm':
-                      conditionIcon = require('../assets/icons/night_thunder.png');
+                      conditionIcon = require('../assets/icons/thunder.png');
                       break;
                     case 'Heavy shower snow':
                     case 'Heavy snow':
