@@ -1,10 +1,10 @@
 <template>
   <div class="sun-data row">
-    <p class="col-6">
+    <p class="col-6 sunrise">
       <i class="wi wi-sunrise text-warning"></i>
       <span class="value">{{ sunrise }}</span>
     </p>
-    <p class="col-6">
+    <p class="col-6 sunset">
       <i class="wi wi-sunset text-warning"></i>
       <span class="value">{{ sunset }}</span>
     </p>
@@ -34,23 +34,16 @@
     font-size: 0.875rem;
     justify-content: space-between;
     margin: 0 auto;
-    padding: 32px 0 8px 0;
+    padding: 56px 0 8px 0;
     max-width: 325px;
     min-width: 275px;
 
-    > .col-6 {
+    > .sunrise,
+    > .sunset {
       margin-bottom: 8px;
       padding-left: 8px;
       padding-right: 8px;
       width: 92px;
-
-      &:first-child {
-        padding-left: 0;
-      }
-
-      &:last-child {
-        padding-right: 0;
-      }
 
       > .value {
         color: #9e9e9e;
@@ -61,6 +54,14 @@
       > .wi {
         font-size: 1.25rem;
       }
+    }
+
+    > .sunrise {
+        text-align: left;
+      }
+
+    > .sunset {
+      text-align: right;
     }
   }
 

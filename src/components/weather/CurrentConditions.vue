@@ -1,24 +1,31 @@
 <template>
   <div class="conditions row">
-    <img
-      :src="skyConditionIcon"
-      :alt="skyConditionDescription"
-    >
-    <div class="temperature">
-      {{ temperature }}<i class="wi wi-degrees"></i>
+    <div class="d-flex flex-column">
+      <p class="current-date">{{ date }}</p>
+
+      <div class="temperature">
+        {{ temperature }}<i class="wi wi-degrees"></i>
+      </div>
+
+      <div class="feels-like">
+        <p>
+          Feels like: <span class="value">
+            {{ feelsLike }}<i class="wi wi-degrees"></i>
+          </span>
+        </p>
+      </div>
     </div>
-    <div class="feels-like">
-      <p>
-        Feels like: <span class="value">
-          {{ feelsLike }}<i class="wi wi-degrees"></i>
-        </span>
-      </p>
+
+    <div class="condition-icon">
+      <img
+        :src="skyConditionIcon"
+        :alt="skyConditionDescription"
+      >
     </div>
   </div>
 
   <div class="sky-condition">
     <p>{{ skyConditionText }}</p>
-    <p class="current-date">{{ date }}</p>
   </div>
 </template>
 
@@ -55,59 +62,76 @@
 </script>
 
 <style lang="scss" scoped>
-  .feels-like,
-  .sky-condition {
+  .current-date,
+  .feels-like {
     color: #9e9e9e;
   }
 
   .conditions {
     align-items: center;
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin-top: 24px;
-    padding: 0 16px;
+    justify-content: space-around;
+    margin-bottom: 8px;
+    margin-top: 64px;
+    padding: 0 32px;
 
-    > .feels-like {
+    .condition-icon {
+      align-items: center;
+      background-color: #E1F5FE;
+      border: 1px solid #B3E5FC;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      height: 125px;
+      width: 125px;
+
+      > img {
+        margin-bottom: 0;
+        opacity: 60%;
+        width: 75px;
+      }
+    }
+
+    .current-date {
+      font-size: 1rem;
+      margin-bottom: -1rem;
+      padding: 0;
+    }
+
+    .feels-like {
       margin-top: -16px;
+      text-align: left;
 
       .value {
         font-weight: 700;
       }
+
+      p {
+        margin-bottom: 0;
+      }
     }
 
-    > .temperature {
+    .temperature {
       font-size: 5rem;
       font-weight: 400;
       letter-spacing: -5px;
       margin-bottom: 0;
-      margin-left: 12px;
+      text-align: left;
 
       > .wi-degrees {
         margin-left: 4px;
       }
     }
-
-    > img {
-      margin-left: 12px;
-      width: 100px;
-    }
   }
 
   .sky-condition {
     align-items: center;
+    color: #bdbdbd;
     display: flex;
-    flex-direction: column;
-    font-size: 1.375rem;
-    justify-content: center;
-    margin: 0 auto;
+    font-size: 1rem;
+    margin-left: 29px;
     max-width: 325px;
-
-    .current-date {
-      font-size: 1rem;
-      margin-top: -12px;
-      padding: 0;
-    }
+    text-transform: capitalize;
 
     > img {
       height: 48px;
@@ -116,9 +140,7 @@
     }
 
     > p {
-      height: 48px;
       margin-bottom: 0;
-      padding-top: 5px;
     }
   }
 

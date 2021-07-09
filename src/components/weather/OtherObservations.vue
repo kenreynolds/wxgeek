@@ -99,7 +99,7 @@
 
     > .wi {
       color: #9e9e9e;
-      font-size: 1rem;
+      font-size: 1.25rem;
       margin-right: .25rem;
     }
 
