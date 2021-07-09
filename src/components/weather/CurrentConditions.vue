@@ -130,7 +130,7 @@
     color: #9e9e9e;
     display: flex;
     font-size: 1rem;
-    margin: 64px auto -4px auto;
+    margin: 48px auto -4px auto;
     max-width: 325px;
     min-width: 275px;
     padding-left: 8px;
