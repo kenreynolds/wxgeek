@@ -139,7 +139,7 @@
     margin: 40px auto -4px auto;
     max-width: 325px;
     min-width: 275px;
-    padding-left: 4px;
+    padding-left: 12px;
     text-transform: capitalize;
 
     > img {
