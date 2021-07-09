@@ -88,7 +88,7 @@
       > img {
         margin-bottom: 0;
         opacity: 0.6;
-        width: 75px;
+        width: 65px;
       }
     }
 

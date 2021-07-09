@@ -49,14 +49,15 @@
 <style lang="scss" scoped>
   .hourly-forecast {
     color: #757575;
-    justify-content: space-around;
+    justify-content: space-between;
     margin: 0 auto;
     max-width: 325px;
     min-width: 275px;
+    padding: 0 4px;
 
     .hour {
-      background-color: rgba(255, 255, 255, 0.6);
-      border: 1px solid rgba(255,255, 255, 0.8);
+      background-color: #B3E5FC;
+      border: 1px solid #E1F5FE;
       border-radius: 8px;
       padding: 12px;
 
