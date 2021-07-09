@@ -1,8 +1,10 @@
 <template>
-  <div class="conditions row">
-    <div class="d-flex flex-column">
-      <p class="current-date">{{ date }}</p>
+  <div class="sky-condition">
+    <p>{{ skyConditionText }}</p>
+  </div>
 
+  <div class="conditions row">
+    <div class="temperature-panel">
       <div class="temperature">
         {{ temperature }}<i class="wi wi-degrees"></i>
       </div>
@@ -23,20 +25,12 @@
       >
     </div>
   </div>
-
-  <div class="sky-condition">
-    <p>{{ skyConditionText }}</p>
-  </div>
 </template>
 
 <script>
   export default {
     name: 'CurrentConditions',
     props: {
-      date: {
-        type: String,
-        required: true,
-      },
       feelsLike: {
         type: Number,
         required: true,
@@ -70,20 +64,21 @@
   .conditions {
     align-items: center;
     display: flex;
-    justify-content: space-around;
-    margin: 64px auto 8px auto;
+    justify-content: space-between;
+    margin: -8px auto 8px auto;
     max-width: 325px;
     min-width: 275px;
 
     .condition-icon {
       align-items: center;
-      background-color: #E1F5FE;
-      border: 1px solid #B3E5FC;
+      background: linear-gradient(#81D4FA, #E1F5FE);
+      border: 1px solid #81D4FA;
       border-radius: 50%;
       display: flex;
       justify-content: center;
-      height: 125px;
-      width: 125px;
+      height: 100px;
+      margin-top: 19px;
+      width: 100px;
 
       > img {
         margin-bottom: 0;
@@ -98,41 +93,47 @@
       padding: 0;
     }
 
-    .feels-like {
-      margin-top: -16px;
-      text-align: left;
+    .temperature-panel {
+      display: flex;
+      flex-direction: column;
+      padding-left: 8px;
 
-      .value {
-        font-weight: 700;
+      > .feels-like {
+        margin-top: -16px;
+        text-align: left;
+
+        .value {
+          font-weight: 700;
+        }
+
+        p {
+          margin-bottom: 0;
+        }
       }
 
-      p {
+      > .temperature {
+        font-size: 5rem;
+        font-weight: 400;
+        letter-spacing: -5px;
         margin-bottom: 0;
-      }
-    }
+        text-align: left;
 
-    .temperature {
-      font-size: 5rem;
-      font-weight: 400;
-      letter-spacing: -5px;
-      margin-bottom: 0;
-      text-align: left;
-
-      > .wi-degrees {
-        margin-left: 4px;
+        > .wi-degrees {
+          margin-left: 4px;
+        }
       }
     }
   }
 
   .sky-condition {
     align-items: center;
-    color: #bdbdbd;
+    color: #9e9e9e;
     display: flex;
     font-size: 1rem;
-    margin: 0 auto;
+    margin: 64px auto -4px auto;
     max-width: 325px;
     min-width: 275px;
-    padding-left: 10px;
+    padding-left: 8px;
     text-transform: capitalize;
 
     > img {

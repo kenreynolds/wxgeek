@@ -10,11 +10,11 @@
       <section class="current-conditions">
         <PageHeader
           :city="currentLocation.city"
+          :date="currentWeather.date"
           :state="currentLocation.state"
         ></PageHeader>
 
         <CurrentConditions
-          :date="currentWeather.date"
           :feelsLike="currentWeather.feelsLike"
           :skyConditionDescription="currentWeather.skyConditionDescription"
           :skyConditionText="currentWeather.skyConditionDescription"

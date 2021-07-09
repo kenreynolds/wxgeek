@@ -10,6 +10,10 @@
       <i class="fas fa-ellipsis-v fa-sm"></i>
     </a>
   </div>
+
+  <div class="row justify-content-center">
+    <p class="current-date">{{ date }}</p>
+  </div>
 </template>
 
 <script>
@@ -17,6 +21,10 @@ export default {
   name: 'PageHeader',
   props: {
     city: {
+      type: String,
+      required: true,
+    },
+    date: {
       type: String,
       required: true,
     },
@@ -53,7 +61,7 @@ export default {
     font-size: 1rem;
     font-weight: 300;
     margin-bottom: 0;
-    margin-left: 0;
+    margin-left: -24px;
     margin-right: 0;
 
     > .fa-location-arrow {
