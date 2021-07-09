@@ -18,11 +18,13 @@
       </div>
     </div>
 
-    <div class="condition-icon">
-      <img
-        :src="skyConditionIcon"
-        :alt="skyConditionDescription"
-      >
+    <div class="condition-panel">
+      <div class="condition-icon">
+        <img
+          :src="skyConditionIcon"
+          :alt="skyConditionDescription"
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -65,25 +67,29 @@
     align-items: center;
     display: flex;
     justify-content: space-between;
-    margin: -8px auto 8px auto;
+    margin: -8px auto 0 auto;
     max-width: 325px;
     min-width: 275px;
 
-    .condition-icon {
-      align-items: center;
-      background: linear-gradient(#81D4FA, #E1F5FE);
-      border: 1px solid #81D4FA;
-      border-radius: 50%;
-      display: flex;
-      justify-content: center;
-      height: 100px;
-      margin-top: 19px;
-      width: 100px;
+    .condition-panel {
+      padding-right: 12px;
 
-      > img {
-        margin-bottom: 0;
-        opacity: 0.6;
-        width: 65px;
+      .condition-icon {
+        align-items: center;
+        background: linear-gradient(#81D4FA, #E1F5FE);
+        border: 1px solid #81D4FA;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        height: 100px;
+        margin-top: 19px;
+        width: 100px;
+
+        > img {
+          margin-bottom: 0;
+          opacity: 0.6;
+          width: 65px;
+        }
       }
     }
 
@@ -96,7 +102,7 @@
     .temperature-panel {
       display: flex;
       flex-direction: column;
-      padding-left: 8px;
+      padding-left: 12px;
 
       > .feels-like {
         margin-top: -16px;
@@ -130,10 +136,10 @@
     color: #9e9e9e;
     display: flex;
     font-size: 1rem;
-    margin: 48px auto -4px auto;
+    margin: 40px auto -4px auto;
     max-width: 325px;
     min-width: 275px;
-    padding-left: 8px;
+    padding-left: 4px;
     text-transform: capitalize;
 
     > img {
