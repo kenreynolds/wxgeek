@@ -71,9 +71,9 @@
     align-items: center;
     display: flex;
     justify-content: space-around;
-    margin-bottom: 8px;
-    margin-top: 64px;
-    padding: 0 32px;
+    margin: 64px auto 8px auto;
+    max-width: 325px;
+    min-width: 275px;
 
     .condition-icon {
       align-items: center;
@@ -87,7 +87,7 @@
 
       > img {
         margin-bottom: 0;
-        opacity: 60%;
+        opacity: 0.6;
         width: 75px;
       }
     }
@@ -129,8 +129,10 @@
     color: #bdbdbd;
     display: flex;
     font-size: 1rem;
-    margin-left: 29px;
+    margin: 0 auto;
     max-width: 325px;
+    min-width: 275px;
+    padding-left: 10px;
     text-transform: capitalize;
 
     > img {

@@ -34,9 +34,9 @@
     font-size: 0.875rem;
     justify-content: space-between;
     margin: 0 auto;
-    padding: 56px 0 8px 0;
     max-width: 325px;
     min-width: 275px;
+    padding: 56px 0 8px 0;
 
     > .sunrise,
     > .sunset {
