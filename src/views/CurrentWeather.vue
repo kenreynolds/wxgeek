@@ -432,8 +432,8 @@
         align-items: center;
         justify-content: space-between;
         margin: 0 auto;
-        padding: 0 8px;
-        max-width: 300px;
+        padding: 0 4px;
+        max-width: 325px;
         min-width: 275px;
       }
     }
