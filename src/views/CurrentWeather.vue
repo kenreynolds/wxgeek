@@ -1,10 +1,8 @@
 <template>
   <div class="weather">
-    <div class="spinner" v-if="isLoading">
-      <div class="spinner-border text-primary" role="status">
-        <span class="sr-only">Loading...</span>
-      </div>
-    </div>
+    <TheSpinner
+      :isLoading="isLoading"
+    ></TheSpinner>
 
     <div class="panel">
       <section class="current-conditions">
@@ -64,6 +62,7 @@
   import HourlyForecast from '@/components/weather/HourlyForecast';
   import OtherObservations from '@/components/weather/OtherObservations';
   import PageHeader from '@/components/layout/PageHeader';
+  import TheSpinner from '@/components/common/TheSpinner';
 
   dayjs.extend(localizedFormat);
 
@@ -85,6 +84,7 @@
       HourlyForecast,
       OtherObservations,
       PageHeader,
+      TheSpinner,
     },
     data() {
       return {
@@ -372,19 +372,6 @@
     overflow-x: hidden;
     position: relative;
     z-index: 5;
-
-    > .spinner {
-      align-items: center;
-      background-color: #fff;
-      display: flex;
-      height: 100vh;
-      justify-content: center;
-      left: 15px;
-      margin: 0 -15px 0 -15px;
-      position: absolute;
-      width: 100%;
-      z-index: 100;
-    }
 
     .forecast-day {
       color: #fff;
