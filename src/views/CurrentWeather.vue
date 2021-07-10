@@ -39,9 +39,12 @@
 
       <div class="section-header row">
         <p class="section-heading">Today</p>
-        <p class="section-subtext">
+        <router-link
+          class="section-subtext"
+          to="/daily-forecast"
+        >
           5 day forecast <i class="fas fa-angle-right"></i>
-        </p>
+        </router-link>
       </div>
 
       <HourlyForecast
@@ -70,7 +73,6 @@
    * 1. Add placeholder views for the following:
    *   1.1. Site menu
    *   1.2. Settings menu
-   *   1.3. 5 day forecast
    * 2. Add extra observations and wire up expandable panel
    * 3. Add animation and micro-interactions
    * 4. Refactor for cleaner code as needed
@@ -416,12 +418,25 @@
       }
 
       > .section-header {
-        align-items: center;
+        align-items: baseline;
         justify-content: space-between;
-        margin: 0 auto;
+        margin: 0 auto 16px auto;
         padding: 0 4px;
         max-width: 325px;
         min-width: 275px;
+
+        > .section-heading {
+          margin: 0;
+        }
+
+        > .section-subtext {
+          color: white;
+
+          &:hover {
+            cursor: pointer;
+            text-decoration: none;
+          }
+        }
       }
     }
   }
