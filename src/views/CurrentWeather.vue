@@ -71,8 +71,7 @@
 
   /** TODO:
    * 1. Add placeholder views for the following:
-   *   1.1. Site menu
-   *   1.2. Settings menu
+   *   1.1. Settings menu
    * 2. Add extra observations and wire up expandable panel
    * 3. Add animation and micro-interactions
    * 4. Refactor for cleaner code as needed

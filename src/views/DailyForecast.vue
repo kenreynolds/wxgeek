@@ -34,16 +34,6 @@
 
     > .back-link {
       color: white;
-      cursor: pointer;
-      margin-top: 24px;
-
-      &:hover {
-        text-decoration: none;
-      }
-
-      > .fa-angle-left {
-        margin-right: 5px;
-      }
     }
 
     > h1 {

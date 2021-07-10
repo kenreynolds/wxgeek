@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import CurrentWeather from '@/views/CurrentWeather';
 import DailyForecast from '@/views/DailyForecast';
+import SiteMenu from '@/views/SiteMenu';
 
 const routes = [
   {
@@ -20,6 +21,12 @@ const routes = [
     path: '/daily-forecast',
     name: 'DailyForecast',
     component: DailyForecast,
+  },
+
+  {
+    path: '/site-menu',
+    name: 'SiteMenu',
+    component: SiteMenu,
   },
 ];
 

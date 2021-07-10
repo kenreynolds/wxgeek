@@ -6,9 +6,13 @@
     <p class="location">
       <i class="fas fa-location-arrow"></i>{{ city }}, {{ state }}
     </p>
-    <a class="site-menu" role="button" href="#">
+    <router-link
+      class="site-menu"
+      role="button"
+      to="site-menu"
+    >
       <i class="fas fa-ellipsis-v fa-sm"></i>
-    </a>
+    </router-link>
   </div>
 
   <div class="row justify-content-center">
@@ -17,58 +21,60 @@
 </template>
 
 <script>
-export default {
-  name: 'PageHeader',
-  props: {
-    city: {
-      type: String,
-      required: true,
+  export default {
+    name: 'PageHeader',
+    props: {
+      city: {
+        type: String,
+        required: true,
+      },
+      date: {
+        type: String,
+        required: true,
+      },
+      state: {
+        type: String,
+        required: true,
+      }
     },
-    date: {
-      type: String,
-      required: true,
-    },
-    state: {
-      type: String,
-      required: true,
-    }
-  },
-};
+  };
 </script>
 
 <style lang="scss" scoped>
-.location,
-.page-header {
-  align-items: center;
-  display: flex;
-}
-
-.page-header {
-  justify-content: space-between;
-
-  > .fa-cog,
-  > .fa-ellipsis-v {
-    cursor: pointer;
+  .location,
+  .page-header {
+    align-items: center;
+    display: flex;
   }
 
-  > .settings-button,
-  > .site-menu {
-    color: #757575;
-  }
+  .page-header {
+    justify-content: space-between;
 
-  > .location {
-    color: #212121;
-    font-size: 1rem;
-    font-weight: 300;
-    margin-bottom: 0;
-    margin-left: -24px;
-    margin-right: 0;
+    > .fa-cog,
+    > .fa-ellipsis-v {
+      cursor: pointer;
+    }
 
-    > .fa-location-arrow {
+    > .settings-button,
+    > .site-menu {
       color: #757575;
-      font-size: 0.625rem;
-      margin-right: 4px;
+      margin-right: -10px;
+      width: 24px;
+    }
+
+    > .location {
+      color: #212121;
+      font-size: 1rem;
+      font-weight: 300;
+      margin-bottom: 0;
+      margin-left: -12px;
+      margin-right: 0;
+
+      > .fa-location-arrow {
+        color: #757575;
+        font-size: 0.625rem;
+        margin-right: 4px;
+      }
     }
   }
-}
 </style>
