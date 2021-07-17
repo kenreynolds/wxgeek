@@ -8,16 +8,16 @@
       <section class="current-conditions">
         <PageHeader
           :city="currentLocation.city"
-          :date="currentWeather.date"
+          :date="formatDate(theWeather.dt)"
           :state="currentLocation.state"
         ></PageHeader>
 
         <CurrentConditions
-          :feelsLike="currentWeather.feelsLike"
-          :skyConditionDescription="currentWeather.skyConditionDescription"
-          :skyConditionText="currentWeather.skyConditionDescription"
+          :feelsLike="roundNumeral(theWeather.feels_like)"
+          :skyConditionDescription="theWeatherConditions.description"
+          :skyConditionText="theWeatherConditions.description"
           :skyConditionIcon="currentWeather.skyConditionIcon"
-          :temperature="currentWeather.temperature"
+          :temperature="roundNumeral(theWeather.temp)"
         ></CurrentConditions>
 
         <AstronomicalConditions
@@ -26,9 +26,9 @@
         ></AstronomicalConditions>
 
         <OtherObservations
-          :pressure="currentWeather.pressure"
-          :humidity="currentWeather.humidity"
-          :windSpeed="currentWeather.windSpeed"
+          :pressure="roundNumeral(theWeather.pressure)"
+          :humidity="roundNumeral(theWeather.humidity)"
+          :windSpeed="roundNumeral(theWeather.wind_speed)"
         ></OtherObservations>
       </section>
 
@@ -121,7 +121,7 @@
     },
     methods: {
       formatDate(date) {
-        return dayjs(date).format('ddd, M/D');
+        return dayjs(date).format('dddd, MMMM D');
       },
       formatTime(time) {
         return dayjs(time).format('LT');
@@ -358,7 +358,19 @@
         return Math.round(num);
       },
     },
+    computed: {
+      theWeather() {
+        console.log(this.$store.state.weatherState);
+        return this.$store.state.weatherState;
+      },
+      theWeatherConditions() {
+        console.log(this.$store.state.weatherConditions);
+        return this.$store.state.weatherConditions;
+      }
+    },
     mounted() {
+      this.$store.dispatch('getWeather');
+      this.$store.dispatch('getWeatherConditions');
       this.getWeatherData();
     },
   };
