@@ -2,27 +2,37 @@
   <div class="sun-data row">
     <p class="col-6 sunrise">
       <i class="wi wi-sunrise text-warning"></i>
-      <span class="value">{{ sunrise }}</span>
+      <span class="value">{{ formatTime(sunrise) }}</span>
     </p>
     <p class="col-6 sunset">
       <i class="wi wi-sunset text-warning"></i>
-      <span class="value">{{ sunset }}</span>
+      <span class="value">{{ formatTime(sunset) }}</span>
     </p>
   </div>
 </template>
 
 <script>
+  import dayjs from 'dayjs';
+  import localizedFormat from 'dayjs/plugin/localizedFormat';
+
+  dayjs.extend(localizedFormat);
+
   export default {
     name: 'AstronomicalConditions',
     props: {
       sunrise: {
-        type: String,
+        type: Number,
         required: true,
       },
       sunset: {
-        type: String,
+        type: Number,
         required: true,
       }
+    },
+    methods: {
+      formatTime(time) {
+        return dayjs.unix(time).format('LT');
+      },
     },
   }
 </script>
