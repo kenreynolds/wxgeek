@@ -63,6 +63,11 @@
     color: #9e9e9e;
   }
 
+  .feels-like,
+  .temperature {
+    font-family: 'Red Hat Display', sans-serif;
+  }
+
   .conditions {
     align-items: center;
     display: flex;
@@ -120,7 +125,7 @@
       > .temperature {
         font-size: 5rem;
         font-weight: 400;
-        letter-spacing: -5px;
+        letter-spacing: -2px;
         margin-bottom: 0;
         text-align: left;
 
