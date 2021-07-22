@@ -2,11 +2,15 @@
   <div class="sun-data row">
     <p class="col-6 sunrise">
       <i class="wi wi-sunrise text-warning"></i>
-      <span class="value">{{ formatTime(sunrise) }}</span>
+      <span class="value">
+        {{ formatTime(theCurrentWeather.sunrise) }}
+      </span>
     </p>
     <p class="col-6 sunset">
       <i class="wi wi-sunset text-warning"></i>
-      <span class="value">{{ formatTime(sunset) }}</span>
+      <span class="value">
+        {{ formatTime(theCurrentWeather.sunset) }}
+      </span>
     </p>
   </div>
 </template>
@@ -19,19 +23,14 @@
 
   export default {
     name: 'AstronomicalConditions',
-    props: {
-      sunrise: {
-        type: Number,
-        required: true,
-      },
-      sunset: {
-        type: Number,
-        required: true,
-      }
-    },
     methods: {
       formatTime(time) {
         return dayjs.unix(time).format('LT');
+      },
+    },
+    computed: {
+      theCurrentWeather() {
+        return this.$store.state.currentWeather;
       },
     },
   }

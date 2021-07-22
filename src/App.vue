@@ -4,6 +4,14 @@
   </div>
 </template>
 
+<script>
+  export default {
+    mounted() {
+      this.$store.dispatch('getWeather');
+    },
+  }
+</script>
+
 <style lang="scss">
   #app {
     -webkit-font-smoothing: antialiased;

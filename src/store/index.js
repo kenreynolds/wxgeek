@@ -26,6 +26,9 @@ const getCurrentCoordinates = () => {
 
 export default createStore({
   state: {
+    dailyForecastData: [],
+    hourlyForecastData: [],
+    isLoading: true,
     currentLocation: {
       lat: 0,
       lon: 0,
@@ -50,8 +53,6 @@ export default createStore({
       uvIndex: 0,
       windSpeed: 0,
     },
-    hourlyForecastData: [],
-    isLoading: true,
   },
   mutations: {
     GET_CURRENT_LOCATION(state, payload) {
@@ -66,6 +67,9 @@ export default createStore({
       state.currentAirQuality = {
         airQualityIndex: payload.main.aqi,
       };
+    },
+    GET_DAILY_FORECAST(state, payload) {
+      state.dailyForecastData = payload;
     },
     GET_HOURLY_FORECASTS(state, payload) {
       state.hourlyForecastData = payload;
@@ -102,9 +106,14 @@ export default createStore({
             axios.get(oneCallWeatherUrl),
             axios.get(airPollutionUrl),
           ]).then(axios.spread((geoResponse, weatherResponse, airPollutionResponse) => {
-            if (geoResponse.length !== 0 && weatherResponse.length !== 0 && airPollutionResponse !== 0) {
+            if (
+              geoResponse.length !== 0
+              && weatherResponse.length !== 0
+              && airPollutionResponse !== 0
+            ) {
               commit('GET_CURRENT_LOCATION', geoResponse.data[0]);
               commit('GET_AIR_QUALITY', airPollutionResponse.data.list[0]);
+              commit('GET_DAILY_FORECAST', weatherResponse.data.daily);
               commit('GET_HOURLY_FORECASTS', weatherResponse.data.hourly);
               commit('GET_WEATHER', weatherResponse.data.current);
               this.state.isLoading = false;
@@ -134,54 +143,66 @@ export default createStore({
           case 'shower rain':
           case 'shower rain and drizzle':
           case 'torrential rain shower':
-          case 'very heavy rain':
+          case 'very heavy rain': {
             return require('../assets/icons/rain.png');
+          }
           case 'light thunderstorm':
           case 'thunderstormw with drizzle':
           case 'thunderstormw with heavy drizzle':
           case 'thunderstorm with light drizzle':
           case 'thunderstorm with light rain':
           case 'thunderstorm with heavy rain':
-          case 'thunderstorm with rain':
+          case 'thunderstorm with rain': {
             return require('../assets/icons/day_rain_thunder.png');
+          }
           case 'drizzle':
           case 'drizzle rain':
           case 'heavy intensity drizzle':
           case 'heavy intensity drizzle rain':
           case 'light intensity drizzle':
-          case 'light intensity drizzle rain':
+          case 'light intensity drizzle rain': {
             return require('../assets/icons/day_rain.png');
+          }
           case 'freezing rain':
           case 'Light rain and snow':
           case 'Light shower sleet':
           case 'Rain and snow':
           case 'Shower sleet':
-          case 'Sleet':
+          case 'Sleet': {
             return require('../assets/icons/day_sleet.png');
+          }
           case 'Light shower snow':
           case 'light snow':
           case 'Snow':
-          case 'snow possible':
+          case 'snow possible': {
             return require('../assets/icons/day_snow.png');
+          }
           case 'heavy thunderstorm':
           case 'ragged thunderstorm':
-          case 'thunderstorm':
+          case 'thunderstorm': {
             return require('../assets/icons/thunder.png');
+          }
           case 'Heavy shower snow':
-          case 'Heavy snow':
+          case 'Heavy snow': {
             return require('../assets/icons/snow.png');
-          case 'mist':
+          }
+          case 'mist': {
             return require('../assets/icons/mist.png');
-          case 'overcast clouds':
+          }
+          case 'overcast clouds': {
             return require('../assets/icons/overcast.png');
+          }
           case 'broken clouds':
           case 'few clouds':
-          case 'scattered clouds':
+          case 'scattered clouds': {
             return require('../assets/icons/day_partial_cloud.png');
-          case 'clear sky':
+          }
+          case 'clear sky': {
             return require('../assets/icons/day_clear.png');
-          default:
+          }
+          default: {
             return;
+          }
         }
       } else {
         switch (state.currentWeather.skyConditionDescription) {
@@ -199,54 +220,66 @@ export default createStore({
           case 'shower rain':
           case 'shower rain and drizzle':
           case 'torrential rain shower':
-          case 'very heavy rain':
+          case 'very heavy rain': {
             return require('../assets/icons/rain.png');
+          }
           case 'light thunderstorm':
           case 'thunderstormw with drizzle':
           case 'thunderstormw with heavy drizzle':
           case 'thunderstorm with light drizzle':
           case 'thunderstorm with light rain':
           case 'thunderstorm with heavy rain':
-          case 'thunderstorm with rain':
+          case 'thunderstorm with rain': {
             return require('../assets/icons/night_rain_thunder.png');
+          }
           case 'drizzle':
           case 'drizzle rain':
           case 'heavy intensity drizzle':
           case 'heavy intensity drizzle rain':
           case 'light intensity drizzle':
-          case 'light intensity drizzle rain':
+          case 'light intensity drizzle rain': {
             return require('../assets/icons/night_rain.png');
+          }
           case 'freezing rain':
           case 'Light rain and snow':
           case 'Light shower sleet':
           case 'Rain and snow':
           case 'Shower sleet':
-          case 'Sleet':
+          case 'Sleet': {
             return require('../assets/icons/night_sleet.png');
+          }
           case 'Light shower snow':
           case 'light snow':
           case 'Snow':
-          case 'snow possible':
+          case 'snow possible': {
             return require('../assets/icons/night_snow.png');
+          }
           case 'heavy thunderstorm':
           case 'ragged thunderstorm':
-          case 'thunderstorm':
+          case 'thunderstorm': {
             return require('../assets/icons/thunder.png');
+          }
           case 'Heavy shower snow':
-          case 'Heavy snow':
+          case 'Heavy snow': {
             return require('../assets/icons/snow.png');
-          case 'mist':
+          }
+          case 'mist': {
             return require('../assets/icons/mist.png');
-          case 'overcast clouds':
+          }
+          case 'overcast clouds': {
             return require('../assets/icons/overcast.png');
+          }
           case 'broken clouds':
           case 'few clouds':
-          case 'scattered clouds':
+          case 'scattered clouds': {
             return require('../assets/icons/night_partial_cloud.png');
-          case 'clear sky':
+          }
+          case 'clear sky': {
             return require('../assets/icons/night_clear.png');
-          default:
+          }
+          default: {
             return;
+          }
         }
       }
     },

@@ -1,18 +1,18 @@
 <template>
   <div class="sky-condition">
-    <p>{{ skyConditionText }}</p>
+    <p>{{ theCurrentWeather.skyConditionText }}</p>
   </div>
 
   <div class="conditions row">
     <div class="temperature-panel">
       <div class="temperature">
-        {{ temperature }}<i class="wi wi-degrees"></i>
+        {{ roundNumeral(theCurrentWeather.temperature) }}<i class="wi wi-degrees"></i>
       </div>
 
       <div class="feels-like">
         <p>
           Feels like: <span class="value">
-            {{ feelsLike }}<i class="wi wi-degrees"></i>
+            {{ roundNumeral(theCurrentWeather.feelsLike) }}<i class="wi wi-degrees"></i>
           </span>
         </p>
       </div>
@@ -21,8 +21,8 @@
     <div class="condition-panel">
       <div class="condition-icon">
         <img
-          :src="skyConditionIcon"
-          :alt="skyConditionDescription"
+          :src="theConditionIcon"
+          :alt="theCurrentWeather.skyConditionDescription"
         >
       </div>
     </div>
@@ -32,28 +32,19 @@
 <script>
   export default {
     name: 'CurrentConditions',
-    props: {
-      feelsLike: {
-        type: Number,
-        required: true,
-      },
-      skyConditionDescription: {
-        type: String,
-        required: true,
-      },
-      skyConditionText: {
-        type: String,
-        required: true,
-      },
-      skyConditionIcon: {
-        type: String,
-        required: true,
-      },
-      temperature: {
-        type: Number,
-        required: true,
+    methods: {
+      roundNumeral(num) {
+        return Math.round(num);
       },
     },
+    computed: {
+      theConditionIcon() {
+        return this.$store.getters.conditionIcon;
+      },
+      theCurrentWeather() {
+        return this.$store.state.currentWeather;
+      },
+    }
   }
 </script>
 

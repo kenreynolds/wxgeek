@@ -3,12 +3,16 @@
     <div class="row">
       <div class="col-4 p-0 pt-1 pb-1" :class="uvIndexClass">
         <p>
-          UV Index: <span class="value">{{ uvIndex }}</span>
+          UV Index: <span class="value">
+            {{ uvIndex }}
+          </span>
         </p>
       </div>
       <div class="col-8 p-0 pt-1 pb-1" :class="airQualityClass">
         <p>
-          Air quality: <span class="value">{{ airQualityText() }}</span>
+          Air quality: <span class="value">
+            {{ airQualityText() }}
+          </span>
         </p>
       </div>
     </div>

@@ -4,7 +4,9 @@
       <i class="fas fa-cog"></i>
     </a>
     <p class="location">
-      <i class="fas fa-location-arrow"></i>{{ city }}, {{ state }}
+      <i
+        class="fas fa-location-arrow"
+      ></i>{{ theCurrentLocation.city }}, {{ theCurrentLocation.state }}
     </p>
     <router-link
       class="site-menu"
@@ -16,26 +18,27 @@
   </div>
 
   <div class="row justify-content-center">
-    <p class="current-date">{{ date }}</p>
+    <p class="current-date">{{ formatDate(theCurrentWeather.dt) }}</p>
   </div>
 </template>
 
 <script>
+  import dayjs from 'dayjs';
+
   export default {
     name: 'PageHeader',
-    props: {
-      city: {
-        type: String,
-        required: true,
+    methods: {
+      formatDate(date) {
+        return dayjs(date).format('dddd, MMMM D');
       },
-      date: {
-        type: String,
-        required: true,
+    },
+    computed: {
+      theCurrentLocation() {
+        return this.$store.state.currentLocation;
       },
-      state: {
-        type: String,
-        required: true,
-      }
+      theCurrentWeather() {
+        return this.$store.state.currentWeather;
+      },
     },
   };
 </script>

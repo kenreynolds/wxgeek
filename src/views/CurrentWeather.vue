@@ -1,35 +1,13 @@
 <template>
   <div class="weather">
-    <TheSpinner
-      :isLoading="showSpinner"
-    ></TheSpinner>
+    <TheSpinner />
 
     <div class="panel">
       <section class="current-conditions">
-        <PageHeader
-          :city="theCurrentLocation.city"
-          :date="formatDate(theCurrentWeather.dt)"
-          :state="theCurrentLocation.state"
-        ></PageHeader>
-
-        <CurrentConditions
-          :feelsLike="roundNumeral(theCurrentWeather.feelsLike)"
-          :skyConditionDescription="theCurrentWeather.skyConditionDescription"
-          :skyConditionText="theCurrentWeather.skyConditionText"
-          :skyConditionIcon="theConditionIcon"
-          :temperature="roundNumeral(theCurrentWeather.temperature)"
-        ></CurrentConditions>
-
-        <AstronomicalConditions
-          :sunrise="theCurrentWeather.sunrise"
-          :sunset="theCurrentWeather.sunset"
-        ></AstronomicalConditions>
-
-        <OtherObservations
-          :pressure="roundNumeral(theCurrentWeather.pressure)"
-          :humidity="roundNumeral(theCurrentWeather.humidity)"
-          :windSpeed="roundNumeral(theCurrentWeather.windSpeed)"
-        ></OtherObservations>
+        <PageHeader />
+        <CurrentConditions />
+        <AstronomicalConditions />
+        <OtherObservations />
       </section>
 
       <AirQuality
@@ -47,16 +25,12 @@
         </router-link>
       </div>
 
-      <HourlyForecast
-        :hourlyForecastData="theHourlyForecasts"
-      ></HourlyForecast>
+      <HourlyForecast />
     </div>
   </div>
 </template>
 
 <script>
-  import dayjs from 'dayjs';
-
   import AirQuality from '@/components/weather/AirQuality';
   import AstronomicalConditions from '@/components/weather/AstronomicalConditions';
   import CurrentConditions from '@/components/weather/CurrentConditions';
@@ -83,35 +57,17 @@
       TheSpinner,
     },
     methods: {
-      formatDate(date) {
-        return dayjs(date).format('dddd, MMMM D');
-      },
       roundNumeral(num) {
         return Math.round(num);
       },
     },
     computed: {
-      theConditionIcon() {
-        return this.$store.getters.conditionIcon;
-      },
       theCurrentAirQuality() {
         return this.$store.state.currentAirQuality;
-      },
-      theCurrentLocation() {
-        return this.$store.state.currentLocation;
       },
       theCurrentWeather() {
         return this.$store.state.currentWeather;
       },
-      theHourlyForecasts() {
-        return this.$store.getters.hourlyForecasts;
-      },
-      showSpinner() {
-        return this.$store.state.isLoading;
-      }
-    },
-    mounted() {
-      this.$store.dispatch('getWeather');
     },
   };
 </script>

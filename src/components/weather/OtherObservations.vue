@@ -4,7 +4,7 @@
       <div class="col other-obs">
         <i class="wi wi-humidity"></i>
         <p class="value">
-          {{ humidity }} %
+          {{ roundNumeral(theCurrentWeather.humidity) }} %
         </p>
         <p class="type">
           Humidity
@@ -14,7 +14,7 @@
       <div class="col other-obs">
         <i class="wi wi-barometer"></i>
         <p class="value">
-          {{ pressure }} mb
+          {{ roundNumeral(theCurrentWeather.pressure) }} mb
         </p>
         <p class="type">
           Pressure
@@ -24,7 +24,7 @@
       <div class="col other-obs">
         <i class="wi wi-strong-wind"></i>
         <p class="value">
-          {{ windSpeed }} mph
+          {{ roundNumeral(theCurrentWeather.windSpeed) }} mph
         </p>
         <p class="type">
           Wind
@@ -41,19 +41,15 @@
 <script>
   export default {
     name: 'OtherObservations',
-    props: {
-      pressure: {
-        type: Number,
-        required: true,
+    methods: {
+      roundNumeral(num) {
+        return Math.round(num);
       },
-      humidity: {
-        type: Number,
-        required: true,
+    },
+    computed: {
+      theCurrentWeather() {
+        return this.$store.state.currentWeather;
       },
-      windSpeed: {
-        type: Number,
-        required: true,
-      }
     },
   };
 </script>

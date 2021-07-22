@@ -1,5 +1,5 @@
 <template>
-  <div class="spinner" v-if="isLoading">
+  <div class="spinner" v-if="showSpinner">
     <div class="spinner-border text-primary" role="status">
       <span class="sr-only">Loading...</span>
     </div>
@@ -9,12 +9,11 @@
 <script>
   export default {
     name: 'TheSpinner',
-    props: {
-      isLoading: {
-        type: Boolean,
-        required: true,
-      },
-    },
+    computed: {
+      showSpinner() {
+        return this.$store.state.isLoading;
+      }
+    }
   }
 </script>
 

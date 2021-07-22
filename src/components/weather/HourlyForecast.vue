@@ -1,7 +1,7 @@
 <template>
   <section class="hourly-forecast row">
     <div
-      v-for="(hourlyForecast, index) in hourlyForecastData"
+      v-for="(hourlyForecast, index) in theHourlyForecasts"
       :key="index"
     >
       <div class="hour col">
@@ -26,21 +26,20 @@
 
   export default {
     name: 'HourlyForecast',
-    props: {
-      hourlyForecastData: {
-        type: Array,
-        required: true,
-      }
-    },
     methods: {
       displayIcon(icon) {
-        return require(`../../assets/icons/${icon}.svg`);
+        return require(`../../assets/icons/gray/${icon}.svg`);
       },
       formatTime(time) {
         return dayjs.unix(time).format('LT');
       },
       roundNumeral(num) {
         return Math.round(num);
+      },
+    },
+    computed: {
+      theHourlyForecasts() {
+        return this.$store.getters.hourlyForecasts;
       },
     },
   }
