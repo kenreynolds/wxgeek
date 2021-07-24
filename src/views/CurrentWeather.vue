@@ -118,7 +118,7 @@
         flex-direction: column;
         justify-content: flex-start;
         margin: 0;
-        padding: 15px;
+        padding: 1rem;
         position: relative;
         width: 100%;
         z-index: 10;

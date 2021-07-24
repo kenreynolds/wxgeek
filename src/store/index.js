@@ -186,6 +186,9 @@ export default createStore({
           case 'Heavy snow': {
             return require('../assets/icons/snow.png');
           }
+          case 'haze': {
+            return require('../assets/icons/fog.png');
+          }
           case 'mist': {
             return require('../assets/icons/mist.png');
           }
@@ -282,6 +285,9 @@ export default createStore({
           }
         }
       }
+    },
+    dailyForecasts: state => {
+      return state.dailyForecastData.slice(1, 8);
     },
     hourlyForecasts: state => {
       let hourlyData = [];

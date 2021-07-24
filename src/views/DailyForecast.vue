@@ -1,27 +1,26 @@
 <template>
+  <div class="row page-header">
+    <router-link
+      class="back-link"
+      to="/"
+    >
+      <i class="fas fa-chevron-circle-left fa-lg"></i>
+    </router-link>
+
+    <span>
+      <i class="far fa-calendar-alt fa-lg"></i>7 day forecast
+    </span>
+
+    <router-link
+      class="site-menu"
+      role="button"
+      to="site-menu"
+    >
+      <i class="fas fa-ellipsis-v fa-sm"></i>
+    </router-link>
+  </div>
+
   <div class="daily-forecast">
-    <div class="row page-header mb-5 pt-3">
-      <router-link
-        class="back-link"
-        to="/"
-      >
-        <i class="fas fa-chevron-circle-left fa-lg"></i>
-      </router-link>
-
-      <span>
-        <i class="far fa-calendar-alt fa-lg"></i>7 day forecast
-      </span>
-
-      <router-link
-        class="site-menu"
-        role="button"
-        to="site-menu"
-      >
-        <i class="fas fa-ellipsis-v fa-sm"></i>
-      </router-link>
-    </div>
-
-    <CurrentConditions />
 
     <div
       class="day row"
@@ -37,7 +36,9 @@
             :alt="day.weather[0].description"
           />
         </div>
-        <span class="text">{{ day.weather[0].main }}</span>
+        <span>
+          {{ day.weather[0].main }}
+        </span>
       </div>
 
       <div class="temperatures">
@@ -54,13 +55,9 @@
 
 <script>
   import dayjs from 'dayjs';
-  import CurrentConditions from '@/components/weather/CurrentConditions';
 
   export default {
     name: 'DailyForecast',
-    components: {
-      CurrentConditions,
-    },
     methods: {
       displayIcon(icon) {
         return require(`../assets/icons/white/${icon}.svg`);
@@ -74,7 +71,7 @@
     },
     computed: {
       theDailyForecast() {
-        return this.$store.state.dailyForecastData;
+        return this.$store.getters.dailyForecasts;
       }
     },
   }
@@ -83,20 +80,23 @@
 <style lang="scss" scoped>
   .daily-forecast {
     height: 100vh;
+    margin: 0 auto;
+    max-width: 375px;
+    min-width: 275px;
 
     > .day {
       align-items: center;
       display: flex;
       justify-content: space-between;
-      padding: 16px 0;
+      padding: 1.25rem 0;
 
       > .condition {
         align-items: center;
         display: flex;
-        justify-content: space-between;
         width: 80px;
 
         > .icon {
+          margin-right: 0.5rem;
           width: 24px;
         }
 
@@ -120,39 +120,41 @@
         }
 
         .fas {
+          color: #B3E5FC;
           margin-right: 2px;
-          opacity: 0.75;
         }
       }
     }
 
-    > .page-header {
-      align-items: center;
-      display: flex;
-      justify-content: space-between;
-
-      > .site-menu {
-        color: white;
-        margin-right: -10px;
-        width: 24px;
-      }
-
-      .fa-calendar-alt {
-        margin-right: 8px;
-      }
-    }
-
     > .row {
-      margin: 0 15px;
-    }
-
-    .back-link {
-      color: white;
-      margin: 0;
+      margin: 0 1rem;
     }
 
     > h1 {
       margin-bottom: 16px;
+    }
+  }
+
+  .page-header {
+    align-items: center;
+    display: flex;
+    justify-content: space-between;
+    margin: 0 1rem 3.5rem 1rem;
+    padding-top: 1rem;
+
+    > .back-link {
+      color: white;
+      margin: 0;
+    }
+
+    > .site-menu {
+      color: white;
+      margin-right: -10px;
+      width: 24px;
+    }
+
+    .fa-calendar-alt {
+      margin-right: 8px;
     }
   }
 </style>

@@ -78,38 +78,21 @@
     color: white;
 
     > .row {
-      border-radius: 0 0 8px 8px;
-    }
-
-    > .row {
       border: 2px solid rgba(255, 255, 255, 1);
+      border-radius: 0 0 8px 8px;
       border-top: none;
       flex-direction: row;
       justify-content: center;
       margin: 0 auto;
       max-width: 325px;
       min-width: 275px;
+      overflow: hidden;
       position: relative;
       z-index: 0;
 
       > .col-4 {
         border-right: 2px solid rgba(255, 255, 255, 1);
       }
-    }
-
-    .aqi-good,
-    .aqi-fair,
-    .aqi-moderate,
-    .aqi-poor,
-    .aqi-very-poor {
-      border-radius: 0 0 8px 0;
-    }
-
-    .uvi-low,
-    .uvi-moderate,
-    .uvi-high,
-    .uvi-very-high {
-      border-radius: 0 0 0 8px;
     }
 
     .aqi-good,
