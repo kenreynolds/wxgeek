@@ -33,7 +33,9 @@
     </div>
 
     <div class="row justify-content-center pt-3">
-      <i class="fas fa-chevron-circle-down fa-sm"></i>
+      <button class="expand-button">
+        <i class="fas fa-chevron-circle-down fa-sm"></i>
+      </button>
     </div>
   </div>
 </template>
@@ -55,6 +57,19 @@
 </script>
 
 <style lang="scss" scoped>
+  .expand-button {
+    align-items: center;
+    background-color: #FAFAFA;
+    border: 0;
+    border-radius: 50%;
+    box-shadow: 0 2px 4px #BDBDBD;
+    color: #757575;
+    display: flex;
+    height: 25px;
+    justify-content: center;
+    width: 25px;
+  }
+
   .observations {
     border-top: 1px solid #e0e0e0;
     margin: 0 auto;
