@@ -117,6 +117,7 @@
     display: flex;
     height: 25px;
     justify-content: center;
+    padding: 6px;
     width: 25px;
 
     > .fas {
