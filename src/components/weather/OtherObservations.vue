@@ -32,9 +32,42 @@
       </div>
     </div>
 
+    <div
+      class="expanded-observations row"
+      v-if="isExpanded"
+    >
+      <div class="col other-obs">
+        <i class="wi wi-humidity"></i>
+        <p class="value">
+          {{ roundNumeral(theCurrentWeather.dewpoint) }}<i class="wi wi-degrees"></i>
+        </p>
+        <p class="type">Dew point</p>
+      </div>
+      <div class="col other-obs">
+        <i class="wi wi-horizon"></i>
+        <p class="value">
+          {{ convertToMiles(theCurrentWeather.visibility) }} mi
+        </p>
+        <p class="type">Visibility</p>
+      </div>
+      <div class="col other-obs">
+        <i class="wi wi-strong-wind"></i>
+        <p class="value">
+          {{ roundNumeral(theCurrentWeather.windGust) }} mph
+        </p>
+        <p class="type">Wind gust</p>
+      </div>
+    </div>
+
     <div class="row justify-content-center pt-3">
-      <button class="expand-button">
-        <i class="fas fa-chevron-circle-down fa-sm"></i>
+      <button
+        class="expand-button"
+        @click="expandObservationsPanel"
+      >
+        <i
+          class="fas fa-chevron-circle-down fa-sm"
+          :class="rotateIcon"
+        ></i>
       </button>
     </div>
   </div>
@@ -43,12 +76,29 @@
 <script>
   export default {
     name: 'OtherObservations',
+    data() {
+      return {
+        isExpanded: false,
+      };
+    },
     methods: {
+      convertToMiles(num) {
+        return Math.round(num / 1609.344);
+      },
+      expandObservationsPanel() {
+        this.isExpanded = !this.isExpanded;
+      },
       roundNumeral(num) {
         return Math.round(num);
       },
     },
     computed: {
+      rotateIcon() {
+        return {
+          'open': this.isExpanded === true,
+          'closed': this.isExpanded === false,
+        }
+      },
       theCurrentWeather() {
         return this.$store.state.currentWeather;
       },
@@ -68,6 +118,17 @@
     height: 25px;
     justify-content: center;
     width: 25px;
+
+    > .fas {
+      &.closed,
+      &.open {
+        transition: 0.15s ease-in-out;
+      }
+
+      &.open {
+        transform: rotate(180deg);
+      }
+    }
   }
 
   .observations {
@@ -75,6 +136,13 @@
     margin: 0 auto;
     max-width: 325px;
     min-width: 275px;
+
+    > .expanded-observations {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      padding: 1rem 0 0;
+    }
   }
 
   .other-obs {
@@ -101,6 +169,7 @@
 
       > .wi-degrees {
         font-size: 1rem;
+        margin-left: 1px;
       }
 
       > .wind-direction {

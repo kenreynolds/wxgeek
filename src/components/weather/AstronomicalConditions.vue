@@ -1,12 +1,12 @@
 <template>
   <div class="sun-data row">
-    <p class="col-6 sunrise">
+    <p class="sunrise col-6">
       <i class="wi wi-sunrise text-warning"></i>
       <span class="value">
         {{ formatTime(theCurrentWeather.sunrise) }}
       </span>
     </p>
-    <p class="col-6 sunset">
+    <p class="sunset col-6">
       <i class="wi wi-sunset text-warning"></i>
       <span class="value">
         {{ formatTime(theCurrentWeather.sunset) }}
@@ -45,7 +45,7 @@
     margin: 0 auto;
     max-width: 325px;
     min-width: 275px;
-    padding: 56px 4px 8px 4px;
+    padding: 56px 8px 8px;
 
     > .sunrise,
     > .sunset {
