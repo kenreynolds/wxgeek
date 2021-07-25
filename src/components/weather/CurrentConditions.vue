@@ -128,6 +128,7 @@
     display: flex;
     font-size: 1.5rem;
     justify-content: center;
+    margin: 0 auto;
     max-width: 325px;
     min-width: 275px;
     text-transform: capitalize;
