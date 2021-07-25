@@ -21,7 +21,6 @@
   </div>
 
   <div class="daily-forecast">
-
     <div
       class="day row"
       v-for="(day, index) in theDailyForecast"
@@ -79,6 +78,7 @@
 
 <style lang="scss" scoped>
   .daily-forecast {
+    background: linear-gradient(#01579B, #0277bd);
     height: 100vh;
     margin: 0 auto;
     max-width: 375px;
@@ -86,9 +86,14 @@
 
     > .day {
       align-items: center;
+      border-bottom: 2px solid #0277bd;
       display: flex;
       justify-content: space-between;
-      padding: 1.25rem 0;
+      padding: 1.25rem .75rem;
+
+      &:last-child {
+        border: 0;
+      }
 
       > .condition {
         align-items: center;
@@ -127,7 +132,7 @@
     }
 
     > .row {
-      margin: 0 1rem;
+      margin: 0;
     }
 
     > h1 {
