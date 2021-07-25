@@ -111,7 +111,7 @@
     align-items: center;
     background-color: #FAFAFA;
     border: 0;
-    border-radius: 50%;
+    border-radius: 100%;
     box-shadow: 0 2px 4px #BDBDBD;
     color: #757575;
     display: flex;
