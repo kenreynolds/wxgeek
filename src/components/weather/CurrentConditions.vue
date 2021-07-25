@@ -13,7 +13,6 @@
     </div>
   </div>
 
-
   <div class="sky-condition">
     <p>{{ theCurrentWeather.skyConditionText }}</p>
   </div>
@@ -61,7 +60,7 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    margin: 2.5rem auto 0.5rem auto;
+    margin: 2rem auto 0.5rem auto;
     max-width: 325px;
     min-width: 275px;
 
