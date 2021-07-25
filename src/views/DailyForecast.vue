@@ -21,7 +21,6 @@
   </div>
 
   <div class="daily-forecast">
-
     <div
       class="day row"
       v-for="(day, index) in theDailyForecast"
@@ -49,6 +48,13 @@
           <i class="fas fa-long-arrow-alt-down"></i>{{ roundNumeral(day.temp.min) }}
         </span>
       </div>
+
+      <div
+        class="expanded-forecast row"
+        v-if="isExpanded"
+      >
+        Additional forecast information...
+      </div>
     </div>
   </div>
 </template>
@@ -58,6 +64,11 @@
 
   export default {
     name: 'DailyForecast',
+    data() {
+      return {
+        isExpanded: false,
+      };
+    },
     methods: {
       displayIcon(icon) {
         return require(`../assets/icons/white/${icon}.svg`);
@@ -79,6 +90,7 @@
 
 <style lang="scss" scoped>
   .daily-forecast {
+    background: linear-gradient(#01579B, #0277bd);
     height: 100vh;
     margin: 0 auto;
     max-width: 375px;
@@ -86,9 +98,14 @@
 
     > .day {
       align-items: center;
+      border-bottom: 2px solid #0277bd;
       display: flex;
       justify-content: space-between;
-      padding: 1.25rem 0;
+      padding: 1.25rem .75rem;
+
+      &:last-child {
+        border: 0;
+      }
 
       > .condition {
         align-items: center;
@@ -101,7 +118,7 @@
         }
 
         img {
-          color: white;
+          color: #757575;
           width: 24px;
         }
       }
@@ -127,7 +144,7 @@
     }
 
     > .row {
-      margin: 0 1rem;
+      margin: 0;
     }
 
     > h1 {
@@ -135,20 +152,28 @@
     }
   }
 
+  .expanded-forecast {
+    padding: 1rem 1rem 0;
+  }
+
   .page-header {
     align-items: center;
+    color: #757575;
     display: flex;
     justify-content: space-between;
     margin: 0 1rem 3.5rem 1rem;
     padding-top: 1rem;
 
     > .back-link {
-      color: white;
       margin: 0;
+
+      &:hover {
+        color: inherit;
+      }
     }
 
     > .site-menu {
-      color: white;
+      color: #757575;
       margin-right: -10px;
       width: 24px;
     }
