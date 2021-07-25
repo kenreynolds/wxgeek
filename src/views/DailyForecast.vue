@@ -106,7 +106,7 @@
         }
 
         img {
-          color: white;
+          color: #757575;
           width: 24px;
         }
       }
@@ -142,18 +142,22 @@
 
   .page-header {
     align-items: center;
+    color: #757575;
     display: flex;
     justify-content: space-between;
     margin: 0 1rem 3.5rem 1rem;
     padding-top: 1rem;
 
     > .back-link {
-      color: white;
       margin: 0;
+
+      &:hover {
+        color: inherit;
+      }
     }
 
     > .site-menu {
-      color: white;
+      color: #757575;
       margin-right: -10px;
       width: 24px;
     }

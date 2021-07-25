@@ -35,7 +35,6 @@
   }
 
   .container {
-    background-color: #0277bd;
     padding: 0 !important;
   }
 

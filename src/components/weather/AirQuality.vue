@@ -1,5 +1,5 @@
 <template>
-  <section class="air-quality container mb-2 pb-4">
+  <section class="air-quality container mb-5">
     <div class="row">
       <div class="col-4 p-0 pt-1 pb-1" :class="uvIndexClass">
         <p>

@@ -108,6 +108,7 @@
     }
 
     .panel {
+      background: linear-gradient(#01579B, #0277bd);
       height: 100%;
 
       > .current-conditions {
