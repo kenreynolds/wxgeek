@@ -48,6 +48,13 @@
           <i class="fas fa-long-arrow-alt-down"></i>{{ roundNumeral(day.temp.min) }}
         </span>
       </div>
+
+      <div
+        class="expanded-forecast row"
+        v-if="isExpanded"
+      >
+        Additional forecast information...
+      </div>
     </div>
   </div>
 </template>
@@ -57,6 +64,11 @@
 
   export default {
     name: 'DailyForecast',
+    data() {
+      return {
+        isExpanded: false,
+      };
+    },
     methods: {
       displayIcon(icon) {
         return require(`../assets/icons/white/${icon}.svg`);
@@ -138,6 +150,10 @@
     > h1 {
       margin-bottom: 16px;
     }
+  }
+
+  .expanded-forecast {
+    padding: 1rem 1rem 0;
   }
 
   .page-header {
