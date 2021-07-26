@@ -41,6 +41,7 @@ export default createStore({
     currentWeather: {
       airQuality: 0,
       date: '',
+      dewpoint: 0,
       feelsLike: 0,
       humidity: 0,
       pressure: 0,
@@ -51,6 +52,8 @@ export default createStore({
       sunset: 0,
       temperature: 0,
       uvIndex: 0,
+      visibility: 0,
+      windGust: 0,
       windSpeed: 0,
     },
   },
@@ -75,8 +78,17 @@ export default createStore({
       state.hourlyForecastData = payload;
     },
     GET_WEATHER(state, payload) {
+      let windGust = '';
+
+      if ('wind_gust' in payload) {
+        windGust = payload.wind_gust;
+      } else {
+        windGust = 0;
+      }
+
       state.currentWeather = {
         date: payload.dt,
+        dewpoint: payload.dew_point,
         feelsLike: payload.feels_like,
         humidity: payload.humidity,
         pressure: payload.pressure,
@@ -87,6 +99,8 @@ export default createStore({
         sunset: payload.sunset,
         temperature: payload.temp,
         uvIndex: payload.uvi,
+        visibility: payload.visibility,
+        windGust: windGust,
         windSpeed: payload.wind_speed,
       };
     },
