@@ -93,7 +93,6 @@
     background: linear-gradient(#01579B, #0277bd);
     height: 100vh;
     margin: 0 auto;
-    max-width: 375px;
     min-width: 275px;
 
     > .day {
