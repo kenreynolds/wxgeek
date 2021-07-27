@@ -45,7 +45,7 @@
     margin: 0 auto;
     max-width: 325px;
     min-width: 275px;
-    padding: 56px 8px 8px;
+    padding: 3rem 0.5rem 0.5rem;
 
     > .sunrise,
     > .sunset {

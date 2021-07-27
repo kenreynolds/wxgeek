@@ -1,5 +1,5 @@
 <template>
-  <section class="air-quality container mb-5">
+  <section class="air-quality container">
     <div class="row">
       <div class="col-4 p-0 pt-1 pb-1" :class="uvIndexClass">
         <p>
@@ -76,6 +76,7 @@
 <style lang="scss" scoped>
   .air-quality {
     color: white;
+    margin-bottom: 2rem;
 
     > .row {
       border: 2px solid rgba(255, 255, 255, 1);

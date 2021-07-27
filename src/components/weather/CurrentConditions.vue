@@ -60,7 +60,7 @@
     align-items: center;
     display: flex;
     justify-content: center;
-    margin: 2rem auto 0.5rem auto;
+    margin: 1rem auto 0.5rem;
     max-width: 325px;
     min-width: 275px;
 
