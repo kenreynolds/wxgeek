@@ -4,7 +4,7 @@
       class="back-link"
       to="/"
     >
-      <i class="fas fa-chevron-circle-left fa-lg"></i>
+      <i class="fas fa-chevron-circle-left fa-sm"></i>
     </router-link>
 
     <span>
@@ -20,65 +20,26 @@
     </router-link>
   </div>
 
+  <CurrentConditions />
+
   <div class="daily-forecast">
-    <div
-      class="day row"
-      v-for="(day, index) in theDailyForecast"
-      :key="index"
-    >
-      <div class="date">{{ formatDay(day.dt) }}</div>
-
-      <div class="condition">
-        <div class="icon">
-          <img
-            :src="displayIcon(day.weather[0].icon)"
-            :alt="day.weather[0].description"
-          />
-        </div>
-        <span>
-          {{ day.weather[0].main }}
-        </span>
-      </div>
-
-      <div class="temperatures">
-        <span class="high">
-          <i class="fas fa-long-arrow-alt-up"></i>{{ roundNumeral(day.temp.max) }}
-        </span>
-        <span class="low">
-          <i class="fas fa-long-arrow-alt-down"></i>{{ roundNumeral(day.temp.min) }}
-        </span>
-      </div>
-
-      <div
-        class="expanded-forecast row"
-        v-if="isExpanded"
-      >
-        Additional forecast information...
-      </div>
-    </div>
+    <DayForecast
+      v-for="(day, i) in theDailyForecast"
+      :day="day"
+      :key="i"
+    ></DayForecast>
   </div>
 </template>
 
 <script>
-  import dayjs from 'dayjs';
+  import CurrentConditions from '@/components/weather/CurrentConditions';
+  import DayForecast from '@/components/weather/DayForecast';
 
   export default {
     name: 'DailyForecast',
-    data() {
-      return {
-        isExpanded: false,
-      };
-    },
-    methods: {
-      displayIcon(icon) {
-        return require(`../assets/icons/white/${icon}.svg`);
-      },
-      formatDay(date) {
-        return dayjs.unix(date).format('ddd');
-      },
-      roundNumeral(num) {
-        return Math.round(num);
-      },
+    components: {
+      CurrentConditions,
+      DayForecast,
     },
     computed: {
       theDailyForecast() {
@@ -92,67 +53,8 @@
   .daily-forecast {
     background: linear-gradient(#01579B, #0277bd);
     height: 100vh;
-    margin: 0 auto;
+    margin: 3rem 0 auto;
     min-width: 275px;
-
-    > .day {
-      align-items: center;
-      border-bottom: 2px solid #0277bd;
-      display: flex;
-      justify-content: space-between;
-      padding: 1.25rem .75rem;
-
-      &:last-child {
-        border: 0;
-      }
-
-      > .condition {
-        align-items: center;
-        display: flex;
-        width: 80px;
-
-        > .icon {
-          margin-right: 0.5rem;
-          width: 24px;
-        }
-
-        img {
-          color: #757575;
-          width: 24px;
-        }
-      }
-
-      .date {
-        text-align: left;
-        width: 32px;
-      }
-
-      .temperatures {
-        font-weight: 700;
-        width: 85px;
-
-        > .high {
-          margin-right: 12px;
-        }
-
-        .fas {
-          color: #B3E5FC;
-          margin-right: 2px;
-        }
-      }
-    }
-
-    > .row {
-      margin: 0;
-    }
-
-    > h1 {
-      margin-bottom: 16px;
-    }
-  }
-
-  .expanded-forecast {
-    padding: 1rem 1rem 0;
   }
 
   .page-header {
@@ -160,11 +62,22 @@
     color: #757575;
     display: flex;
     justify-content: space-between;
-    margin: 0 1rem 3.5rem 1rem;
+    margin: 0 1rem 2.5rem 1rem;
     padding-top: 1rem;
 
     > .back-link {
+       align-items: center;
+      background-color: #FAFAFA;
+      border: 0;
+      border-radius: 100%;
+      box-shadow: 0 2px 4px #BDBDBD;
+      color: #757575;
+      display: flex;
+      height: 25px;
+      justify-content: center;
       margin: 0;
+      padding: 6px;
+      width: 25px;
 
       &:hover {
         color: inherit;
