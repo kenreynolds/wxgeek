@@ -37,14 +37,14 @@
       v-if="isExpanded"
     >
       <div class="col other-obs">
-        <i class="wi wi-humidity"></i>
+        <i class="wi wi-thermometer-internal"></i>
         <p class="value">
           {{ roundNumeral(theCurrentWeather.dewpoint) }}<i class="wi wi-degrees"></i>
         </p>
         <p class="type">Dew point</p>
       </div>
       <div class="col other-obs">
-        <i class="wi wi-horizon"></i>
+        <i class="wi wi-horizon-alt"></i>
         <p class="value">
           {{ convertToMiles(theCurrentWeather.visibility) }} mi
         </p>

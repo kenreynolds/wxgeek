@@ -80,7 +80,7 @@ export default createStore({
     GET_WEATHER(state, payload) {
       let windGust = '';
 
-      if ('wind_gust' in payload) {
+      if (payload.hasOwnProperty('wind_gust') || payload.wind_gust !== undefined) {
         windGust = payload.wind_gust;
       } else {
         windGust = 0;

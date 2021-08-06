@@ -14,7 +14,9 @@
   </div>
 
   <div class="sky-condition">
-    <p>{{ theCurrentWeather.skyConditionText }}</p>
+    <p>
+      {{ capitalizeConditionText(theCurrentWeather.skyConditionText) }}
+    </p>
   </div>
 
   <div class="feels-like">
@@ -30,6 +32,9 @@
   export default {
     name: 'CurrentConditions',
     methods: {
+      capitalizeConditionText(string) {
+        return string.charAt(0).toUpperCase() + string.slice(1);
+      },
       roundNumeral(num) {
         return Math.round(num);
       },
@@ -94,6 +99,7 @@
       padding-left: 12px;
 
       > .temperature {
+        color: #757575;
         font-size: 5rem;
         font-weight: 400;
         height: 105px;
@@ -130,7 +136,6 @@
     margin: 0 auto;
     max-width: 325px;
     min-width: 275px;
-    text-transform: capitalize;
 
     > img {
       height: 48px;
