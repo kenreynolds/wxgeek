@@ -58,7 +58,7 @@
       background-color: #B3E5FC;
       border: 1px solid #E1F5FE;
       border-radius: 8px;
-      padding: 12px 10px;
+      padding: 12px;
 
       .hourly-temp {
         font-size: 1rem;

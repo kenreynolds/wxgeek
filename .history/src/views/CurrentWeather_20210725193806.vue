@@ -39,9 +39,11 @@
   import PageHeader from '@/components/layout/PageHeader';
   import TheSpinner from '@/components/common/TheSpinner';
 
-  // TODO: Add placeholder view for settings menu
-  // TODO: Add animation and micro-interactions
-
+  /** TODO:
+   * 1. Add placeholder views for the following:
+   *   1.1. Settings menu
+   * 2. Add animation and micro-interactions
+   */
   export default {
     name: 'CurrentWeather',
     components: {
