@@ -76,7 +76,7 @@
 <style lang="scss" scoped>
   .air-quality {
     color: white;
-    margin-bottom: 1.5rem;
+    margin-bottom: 2rem;
 
     > .row {
       border: 2px solid rgba(255, 255, 255, 1);
