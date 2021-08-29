@@ -104,6 +104,7 @@
     font-family: 'Red Hat Display', sans-serif;
     height: 100vh;
     overflow-x: hidden;
+    padding-bottom: 64px;
     position: relative;
     z-index: 5;
 
