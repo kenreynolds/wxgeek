@@ -16,12 +16,12 @@
       ></AirQuality>
 
       <div class="section-header row">
-        <p class="section-heading">Today</p>
+        <p class="section-heading">Next 3 hours</p>
         <router-link
           class="section-subtext"
           to="/daily-forecast"
         >
-          5 day forecast <i class="fas fa-angle-right"></i>
+          5 day forecast
         </router-link>
       </div>
 
@@ -124,6 +124,7 @@
 
       > .section-header {
         align-items: baseline;
+        font-size: 0.875rem;
         justify-content: space-between;
         margin: 0 auto 16px auto;
         padding: 0 4px;
@@ -131,11 +132,13 @@
         min-width: 275px;
 
         > .section-heading {
+          font-weight: 700;
           margin: 0;
         }
 
         > .section-subtext {
           color: white;
+          text-decoration: underline;
 
           &:hover {
             cursor: pointer;

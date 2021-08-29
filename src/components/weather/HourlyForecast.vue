@@ -1,18 +1,24 @@
 <template>
-  <section class="hourly-forecast row">
+  <section class="hourly-forecast row flex-column">
     <div
+      class="mb-3"
       v-for="(hourlyForecast, index) in theHourlyForecasts"
       :key="index"
     >
       <div class="hour col">
-        <p class="hourly-temp">
-          {{ roundNumeral(hourlyForecast.temp) }}<i class="wi wi-degrees"></i>
+        <div class="hourly-temp__block">
+          <p class="time">{{ formatTime(hourlyForecast.dt) }}</p>
+          <p class="hourly-temp">
+            {{ roundNumeral(hourlyForecast.temp) }}<i class="wi wi-degrees"></i>
+          </p>
+        </div>
+        <p class="pop">
+          Chance of rain: <span class="value">{{ hourlyForecast.pop }}%</span>
         </p>
         <img
           :src="displayIcon(hourlyForecast.weather[0].icon)"
           :alt="hourlyForecast.weather[0].description"
         >
-        <p class="pt-1">{{ formatTime(hourlyForecast.dt) }}</p>
       </div>
     </div>
   </section>
@@ -55,28 +61,60 @@
     padding: 0 4px;
 
     .hour {
+      align-items: center;
       background-color: #B3E5FC;
       border: 1px solid #E1F5FE;
       border-radius: 8px;
-      padding: 12px 10px;
+      display: flex;
+      height: 60px;
+      padding: 12px 10px 12px 0;
 
-      .hourly-temp {
-        font-size: 1rem;
-        font-weight: 700;
-        line-height: 1rem;
+      > .hourly-temp__block {
+        align-items: center;
+        background-color: white;
+        border-radius: 8px 0 0 8px;
+        display: flex;
+        flex-direction: column;
+        height: 60px;
+        justify-content: space-around;
+        position: absolute;
+        width: 88px;
 
-        > .wi-degrees {
-          margin-left: 2px;
+        .hourly-temp {
+          font-size: 1rem;
+          font-weight: 700;
+          line-height: 1rem;
+          margin-bottom: 12px;
+
+          > .wi-degrees {
+            margin-left: 2px;
+          }
+        }
+
+        > .time {
+          font-size: 0.75rem;
+          margin-bottom: 2px;
+          margin-top: 8px;
         }
       }
 
+      > .pop {
+        margin: 0 auto;
+      }
+
       > img {
+        position: absolute;
+        right: 8px;
         width: 35px;
       }
 
       > p {
         font-size: 0.875rem;
         margin: 0;
+      }
+
+      .value {
+        font-weight: 700;
       }
     }
   }
