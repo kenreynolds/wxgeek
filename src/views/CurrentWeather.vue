@@ -71,6 +71,7 @@
 
 <style lang="scss" scoped>
   .weather {
+    background: linear-gradient(#01579B, #0277bd);
     display: flex;
     flex-direction: column;
     font-family: 'Red Hat Display', sans-serif;
@@ -105,8 +106,6 @@
     }
 
     .panel {
-      background: linear-gradient(#01579B, #0277bd);
-
       > .current-conditions {
         background-color: #fff;
         box-shadow: 0 4px 8px rgba(51, 51, 51, 0.5);

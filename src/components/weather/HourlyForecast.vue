@@ -77,7 +77,6 @@
         flex-direction: column;
         height: 60px;
         justify-content: space-around;
-        position: absolute;
         width: 88px;
 
         .hourly-temp {
@@ -99,7 +98,7 @@
       }
 
       > .pop {
-        margin: 0 auto;
+        margin-left: 8px;
       }
 
       > img {
