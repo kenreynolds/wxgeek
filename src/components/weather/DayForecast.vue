@@ -1,7 +1,12 @@
 <template>
   <div class="day row mb-3">
-    <div class="date">
-      {{ formatDay(day.dt) }}
+    <div class="date__block">
+      <span class="weekday">
+        {{ formatDay(day.dt) }}
+      </span>
+      <span class="date">
+        {{ formatDate(day.dt) }}
+      </span>
     </div>
 
     <div class="condition">
@@ -36,6 +41,9 @@
     methods: {
       displayIcon(icon) {
         return require(`../../assets/icons/gray/${icon}.svg`);
+      },
+      formatDate(date) {
+        return dayjs.unix(date).format('M/D');
       },
       formatDay(date) {
         return dayjs.unix(date).format('ddd');
@@ -78,10 +86,20 @@
       }
     }
 
-    .date {
-      font-weight: 700;
+    .date__block {
+      align-items: center;
+      display: flex;
+      flex-direction: column;
+      font-size: 0.75rem;
+      height: 59px;
+      justify-content: center;
       text-align: left;
-      width: 32px;
+      width: 48px;
+
+      > .date {
+        font-size: 0.875rem;
+        font-weight: 700;
+      }
     }
 
     .temperatures {
