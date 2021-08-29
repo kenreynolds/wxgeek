@@ -18,7 +18,6 @@
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
     color: #fff;
-    margin-bottom: 238px;
   }
 
   .back-link {
