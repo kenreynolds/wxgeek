@@ -30,7 +30,7 @@
           role="button"
           @click="shouldShowDailyForecast"
         >
-          5 day forecast
+          7 day forecast
         </a>
       </div>
 
