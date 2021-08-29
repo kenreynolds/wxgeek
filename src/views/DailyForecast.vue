@@ -1,27 +1,4 @@
 <template>
-  <div class="row page-header">
-    <router-link
-      class="back-link"
-      to="/"
-    >
-      <i class="fas fa-chevron-circle-left fa-sm"></i>
-    </router-link>
-
-    <span>
-      <i class="far fa-calendar-alt fa-lg"></i>7 day forecast
-    </span>
-
-    <router-link
-      class="site-menu"
-      role="button"
-      to="site-menu"
-    >
-      <i class="fas fa-ellipsis-v fa-sm"></i>
-    </router-link>
-  </div>
-
-  <CurrentConditions />
-
   <div class="daily-forecast">
     <DayForecast
       v-for="(day, i) in theDailyForecast"
@@ -32,13 +9,11 @@
 </template>
 
 <script>
-  import CurrentConditions from '@/components/weather/CurrentConditions';
   import DayForecast from '@/components/weather/DayForecast';
 
   export default {
     name: 'DailyForecast',
     components: {
-      CurrentConditions,
       DayForecast,
     },
     computed: {
@@ -53,7 +28,7 @@
   .daily-forecast {
     background: linear-gradient(#01579B, #0277bd);
     height: 100vh;
-    margin: 3rem 0 auto;
+    margin: 0 auto;
     min-width: 275px;
   }
 

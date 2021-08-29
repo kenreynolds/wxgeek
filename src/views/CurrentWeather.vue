@@ -16,16 +16,26 @@
       ></AirQuality>
 
       <div class="section-header row">
-        <p class="section-heading">Next 3 hours</p>
-        <router-link
-          class="section-subtext"
-          to="/daily-forecast"
+        <a
+          class="section-heading"
+          :class="{ active: showHourlyForecast }"
+          role="button"
+          @click="shouldShowHourlyForecast"
+        >
+          Next 3 hours
+        </a>
+        <a
+          class="section-heading"
+          :class="{ active: showDailyForecast }"
+          role="button"
+          @click="shouldShowDailyForecast"
         >
           5 day forecast
-        </router-link>
+        </a>
       </div>
 
-      <HourlyForecast />
+      <HourlyForecast v-if="showHourlyForecast" />
+      <DailyForecast v-if="showDailyForecast" />
     </div>
   </div>
 </template>
@@ -34,6 +44,7 @@
   import AirQuality from '@/components/weather/AirQuality';
   import AstronomicalConditions from '@/components/weather/AstronomicalConditions';
   import CurrentConditions from '@/components/weather/CurrentConditions';
+  import DailyForecast from '@/views/DailyForecast';
   import HourlyForecast from '@/components/weather/HourlyForecast';
   import OtherObservations from '@/components/weather/OtherObservations';
   import PageHeader from '@/components/layout/PageHeader';
@@ -48,14 +59,30 @@
       AirQuality,
       AstronomicalConditions,
       CurrentConditions,
+      DailyForecast,
       HourlyForecast,
       OtherObservations,
       PageHeader,
       TheSpinner,
     },
+    data() {
+      return {
+        isActive: false,
+        showDailyForecast: false,
+        showHourlyForecast: true,
+      }
+    },
     methods: {
       roundNumeral(num) {
         return Math.round(num);
+      },
+      shouldShowDailyForecast() {
+        this.showDailyForecast = true;
+        this.showHourlyForecast = false;
+      },
+      shouldShowHourlyForecast() {
+        this.showDailyForecast = false;
+        this.showHourlyForecast = true;
       },
     },
     computed: {
@@ -122,6 +149,7 @@
 
       > .section-header {
         align-items: baseline;
+        color: white;
         font-size: 0.875rem;
         justify-content: space-between;
         margin: 0 auto 16px auto;
@@ -130,16 +158,17 @@
         min-width: 275px;
 
         > .section-heading {
-          font-weight: 700;
-          margin: 0;
-        }
-
-        > .section-subtext {
           color: white;
+          margin: 0;
           text-decoration: underline;
 
           &:hover {
             cursor: pointer;
+            text-decoration: none;
+          }
+
+          &.active {
+            font-weight: 700;
             text-decoration: none;
           }
         }
