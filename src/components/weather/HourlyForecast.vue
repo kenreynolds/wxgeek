@@ -56,9 +56,8 @@
     color: #757575;
     justify-content: space-between;
     margin: 0 auto;
-    max-width: 325px;
-    min-width: 275px;
-    padding: 0 4px;
+    padding: 0 0.875rem;
+    width: 100%;
 
     .hour {
       align-items: center;
