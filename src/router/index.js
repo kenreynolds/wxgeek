@@ -18,12 +18,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/About.vue'),
   },
   {
-    path: '/daily-forecast',
-    name: 'DailyForecast',
-    component: DailyForecast,
-  },
-
-  {
     path: '/site-menu',
     name: 'SiteMenu',
     component: SiteMenu,
