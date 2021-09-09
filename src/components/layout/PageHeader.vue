@@ -1,6 +1,9 @@
 <template>
   <div class="page-header">
-    <a class="settings-button" role="button" href="#">
+    <a
+      class="settings-button"
+      role="button"
+      @click="openSettingsMenu">
       <i class="fas fa-cog"></i>
     </a>
     <p class="location">
@@ -20,6 +23,26 @@
   <div class="row justify-content-center">
     <p class="current-date">{{ formatDate(theCurrentWeather.dt) }}</p>
   </div>
+
+  <transition>
+    <div class="settings-menu" v-if="showSettingsMenu">
+      <div class="settings__title-bar">
+        <h2>Settings</h2>
+        <a role="button" @click="closeSettingsMenu">
+          <i class="fas fa-times-circle"></i>
+        </a>
+      </div>
+
+      <div class="settings-options">
+        <span class="option selected">
+          <i class="fas fa-check-circle"></i>Fahrenheit
+        </span>
+        <span class="option">
+          <i class="far fa-circle"></i>Celsius
+        </span>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -27,10 +50,21 @@
 
   export default {
     name: 'PageHeader',
+    data() {
+      return {
+        showSettingsMenu: false,
+      };
+    },
     methods: {
+      closeSettingsMenu() {
+        this.showSettingsMenu = false;
+      },
       formatDate(date) {
         return dayjs(date).format('dddd, MMMM D');
       },
+      openSettingsMenu() {
+        this.showSettingsMenu = true;
+      }
     },
     computed: {
       theCurrentLocation() {
@@ -79,5 +113,70 @@
         margin-right: 4px;
       }
     }
+  }
+
+  .settings-menu {
+    background-color: white;
+    box-shadow: 0 4px 8px #9e9e9e;
+    height: 100%;
+    left: 0;
+    padding: 1rem;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: 50;
+
+    > .settings-options {
+      display: flex;
+      flex-direction: column;
+      justify-content: start;
+
+      > .option {
+        align-items: center;
+        display: flex;
+        justify-content: start;
+        margin-bottom: 1rem;
+
+        &.selected {
+          color: #4CAF50;
+        }
+      }
+    }
+
+    > .settings__title-bar {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+
+      h2 {
+        font-size: 1.5rem;
+      }
+    }
+
+    .fa-check-circle,
+    .fa-circle {
+      margin-right: .5rem;
+    }
+  }
+
+  .v-enter-from,
+  .v-leave-to {
+    opacity: 0;
+    transform: translateY(-300px);
+  }
+
+  .v-enter-to,
+  .v-leave-from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .v-enter-active {
+    transition: all 0.3s ease-out;
+  }
+
+  .v-leave-active {
+    transition: all 0.2s ease-in;
   }
 </style>
