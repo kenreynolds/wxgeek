@@ -3,21 +3,33 @@
     <a
       class="settings-button"
       role="button"
-      @click="openSettingsMenu">
+      @click="openSettingsMenu"
+    >
       <i class="fas fa-cog"></i>
     </a>
+
     <p class="location">
       <i
         class="fas fa-location-arrow"
       ></i>{{ theCurrentLocation.city }}, {{ theCurrentLocation.state }}
     </p>
-    <router-link
-      class="site-menu"
+
+    <a
+      class="alerts"
       role="button"
-      to="site-menu"
+      v-if="hasAlerts"
+      @click="openAlertsPanel"
     >
-      <i class="fas fa-ellipsis-v fa-sm"></i>
-    </router-link>
+      <i class="fas fa-exclamation-triangle"></i>
+    </a>
+    <a
+      class="no-alerts"
+      role="button"
+      v-else
+      @click="openAlertsPanel"
+    >
+      <i class="fas fa-circle"></i>
+    </a>
   </div>
 
   <div class="row justify-content-center">
@@ -43,6 +55,25 @@
       </div>
     </div>
   </transition>
+
+  <transition>
+    <div class="alerts-panel" v-if="showAlertsPanel">
+      <div class="alerts__title-bar">
+        <h2>Alerts</h2>
+        <a role="button" @click="closeAlertsPanel">
+          <i class="fas fa-times-circle"></i>
+        </a>
+      </div>
+
+      <div v-if="hasAlerts">
+        <h3>Alert!</h3>
+      </div>
+
+      <div v-else>
+        <h3>No alerts</h3>
+      </div>
+    </div>
+  </transition>
 </template>
 
 <script>
@@ -52,15 +83,23 @@
     name: 'PageHeader',
     data() {
       return {
+        hasAlerts: true,
+        showAlertsPanel: false,
         showSettingsMenu: false,
       };
     },
     methods: {
+      closeAlertsPanel() {
+        this.showAlertsPanel = false;
+      },
       closeSettingsMenu() {
         this.showSettingsMenu = false;
       },
       formatDate(date) {
         return dayjs(date).format('dddd, MMMM D');
+      },
+      openAlertsPanel() {
+        this.showAlertsPanel = true;
       },
       openSettingsMenu() {
         this.showSettingsMenu = true;
@@ -93,10 +132,14 @@
     }
 
     > .settings-button,
-    > .site-menu {
+    > .alerts {
       color: #757575;
       margin-right: -10px;
       width: 24px;
+    }
+
+    > .alerts {
+      color: #d50000;
     }
 
     > .location {
@@ -113,8 +156,13 @@
         margin-right: 4px;
       }
     }
+
+    > .no-alerts {
+      color: #4CAF50;
+    }
   }
 
+  .alerts-panel,
   .settings-menu {
     background-color: white;
     box-shadow: 0 4px 8px #9e9e9e;
@@ -143,11 +191,16 @@
       }
     }
 
+    > .alerts__title-bar,
     > .settings__title-bar {
       align-items: center;
       display: flex;
       justify-content: space-between;
       margin-bottom: 1.5rem;
+
+      .fa-times-circle {
+        color: #01579B;
+      }
 
       h2 {
         font-size: 1.5rem;
@@ -155,7 +208,7 @@
     }
 
     .fa-check-circle,
-    .fa-circle {
+    .far.fa-circle {
       margin-right: .5rem;
     }
   }
