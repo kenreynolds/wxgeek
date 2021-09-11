@@ -4,7 +4,7 @@
       <div class="col other-obs">
         <i class="wi wi-humidity"></i>
         <p class="value">
-          {{ roundNumeral(theCurrentWeather.humidity) }} %
+          {{ roundNumeral(currentWeather.humidity) }} %
         </p>
         <p class="type">
           Humidity
@@ -14,7 +14,7 @@
       <div class="col other-obs">
         <i class="wi wi-barometer"></i>
         <p class="value">
-          {{ roundNumeral(theCurrentWeather.pressure) }} mb
+          {{ roundNumeral(currentWeather.pressure) }} mb
         </p>
         <p class="type">
           Pressure
@@ -24,7 +24,7 @@
       <div class="col other-obs">
         <i class="wi wi-strong-wind"></i>
         <p class="value">
-          {{ roundNumeral(theCurrentWeather.windSpeed) }} mph
+          {{ roundNumeral(currentWeather.windSpeed) }} mph
         </p>
         <p class="type">
           Wind
@@ -39,21 +39,21 @@
       <div class="col other-obs">
         <i class="wi wi-thermometer-internal"></i>
         <p class="value">
-          {{ roundNumeral(theCurrentWeather.dewpoint) }}<i class="wi wi-degrees"></i>
+          {{ roundNumeral(currentWeather.dewpoint) }}<i class="wi wi-degrees"></i>
         </p>
         <p class="type">Dew point</p>
       </div>
       <div class="col other-obs">
         <i class="wi wi-horizon-alt"></i>
         <p class="value">
-          {{ convertToMiles(theCurrentWeather.visibility) }} mi
+          {{ convertToMiles(currentWeather.visibility) }} mi
         </p>
         <p class="type">Visibility</p>
       </div>
       <div class="col other-obs">
         <i class="wi wi-strong-wind"></i>
         <p class="value">
-          {{ roundNumeral(theCurrentWeather.windGust) }} mph
+          {{ roundNumeral(currentWeather.windGust) }} mph
         </p>
         <p class="type">Wind gust</p>
       </div>
@@ -74,6 +74,8 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
   export default {
     name: 'OtherObservations',
     data() {
@@ -93,14 +95,12 @@
       },
     },
     computed: {
+      ...mapState(['currentWeather']),
       rotateIcon() {
         return {
           'open': this.isExpanded === true,
           'closed': this.isExpanded === false,
         }
-      },
-      theCurrentWeather() {
-        return this.$store.state.currentWeather;
       },
     },
   };

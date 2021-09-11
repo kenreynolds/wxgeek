@@ -10,8 +10,8 @@
     </section>
 
     <AirQuality
-      :airQuality="theCurrentAirQuality.airQualityIndex"
-      :uvIndex="roundNumeral(theCurrentWeather.uvIndex)"
+      :airQuality="currentAirQuality.airQualityIndex"
+      :uvIndex="roundNumeral(currentWeather.uvIndex)"
     ></AirQuality>
 
     <div class="section-header row">
@@ -39,6 +39,8 @@
 </template>
 
 <script>
+  import { mapState } from 'vuex';
+
   import AirQuality from '@/components/weather/AirQuality';
   import AstronomicalConditions from '@/components/weather/AstronomicalConditions';
   import CurrentConditions from '@/components/weather/CurrentConditions';
@@ -84,12 +86,7 @@
       },
     },
     computed: {
-      theCurrentAirQuality() {
-        return this.$store.state.currentAirQuality;
-      },
-      theCurrentWeather() {
-        return this.$store.state.currentWeather;
-      },
+      ...mapState(['currentAirQuality', 'currentWeather']),
     },
   };
 </script>

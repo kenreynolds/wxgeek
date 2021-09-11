@@ -3,19 +3,20 @@
     <p class="sunrise col-6">
       <i class="wi wi-sunrise text-warning"></i>
       <span class="value">
-        {{ formatTime(theCurrentWeather.sunrise) }}
+        {{ formatTime(currentWeather.sunrise) }}
       </span>
     </p>
     <p class="sunset col-6">
       <i class="wi wi-sunset text-warning"></i>
       <span class="value">
-        {{ formatTime(theCurrentWeather.sunset) }}
+        {{ formatTime(currentWeather.sunset) }}
       </span>
     </p>
   </div>
 </template>
 
 <script>
+  import { mapState } from 'vuex';
   import dayjs from 'dayjs';
   import localizedFormat from 'dayjs/plugin/localizedFormat';
 
@@ -29,9 +30,7 @@
       },
     },
     computed: {
-      theCurrentWeather() {
-        return this.$store.state.currentWeather;
-      },
+      ...mapState(['currentWeather']),
     },
   }
 </script>

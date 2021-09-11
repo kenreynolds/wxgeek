@@ -2,33 +2,35 @@
   <div class="conditions row">
     <div class="condition-icon">
       <img
-        :src="theConditionIcon"
-        :alt="theCurrentWeather.skyConditionDescription"
+        :src="conditionIcon"
+        :alt="currentWeather.skyConditionDescription"
       >
     </div>
     <div class="temperature-panel">
       <div class="temperature">
-        {{ roundNumeral(theCurrentWeather.temperature) }}<i class="wi wi-degrees"></i>
+        {{ roundNumeral(currentWeather.temperature) }}<i class="wi wi-degrees"></i>
       </div>
     </div>
   </div>
 
   <div class="sky-condition">
     <p>
-      {{ capitalizeConditionText(theCurrentWeather.skyConditionText) }}
+      {{ capitalizeConditionText(currentWeather.skyConditionText) }}
     </p>
   </div>
 
   <div class="feels-like">
     <p>
       Feels like: <span class="value">
-        {{ roundNumeral(theCurrentWeather.feelsLike) }}<i class="wi wi-degrees"></i>
+        {{ roundNumeral(currentWeather.feelsLike) }}<i class="wi wi-degrees"></i>
       </span>
     </p>
   </div>
 </template>
 
 <script>
+  import { mapGetters, mapState } from 'vuex';
+
   export default {
     name: 'CurrentConditions',
     methods: {
@@ -40,12 +42,8 @@
       },
     },
     computed: {
-      theConditionIcon() {
-        return this.$store.getters.conditionIcon;
-      },
-      theCurrentWeather() {
-        return this.$store.state.currentWeather;
-      },
+      ...mapGetters(['conditionIcon']),
+      ...mapState(['currentWeather']),
     }
   }
 </script>

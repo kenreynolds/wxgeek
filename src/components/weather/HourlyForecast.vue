@@ -2,7 +2,7 @@
   <section class="hourly-forecast row flex-column">
     <div
       class="mb-3"
-      v-for="(hourlyForecast, index) in theHourlyForecasts"
+      v-for="(hourlyForecast, index) in hourlyForecasts"
       :key="index"
     >
       <div class="hour col">
@@ -25,6 +25,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import dayjs from 'dayjs';
   import localizedFormat from 'dayjs/plugin/localizedFormat';
 
@@ -44,9 +45,7 @@
       },
     },
     computed: {
-      theHourlyForecasts() {
-        return this.$store.getters.hourlyForecasts;
-      },
+      ...mapGetters(['hourlyForecasts']),
     },
   }
 </script>

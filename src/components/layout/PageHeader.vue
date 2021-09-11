@@ -11,7 +11,7 @@
     <p class="location">
       <i
         class="fas fa-location-arrow"
-      ></i>{{ theCurrentLocation.city }}, {{ theCurrentLocation.state }}
+      ></i>{{ currentLocation.city }}, {{ currentLocation.state }}
     </p>
 
     <a
@@ -33,7 +33,7 @@
   </div>
 
   <div class="row justify-content-center">
-    <p class="current-date">{{ formatDate(theCurrentWeather.dt) }}</p>
+    <p class="current-date">{{ formatDate(currentWeather.dt) }}</p>
   </div>
 
   <transition>
@@ -77,18 +77,27 @@
 </template>
 
 <script>
+  import { mapGetters, mapState } from 'vuex';
   import dayjs from 'dayjs';
 
   export default {
     name: 'PageHeader',
     data() {
       return {
-        hasAlerts: true,
+        hasAlerts: false,
         showAlertsPanel: false,
         showSettingsMenu: false,
       };
     },
     methods: {
+      hasAlertsData() {
+        if (this.getAlerts !== 'No alerts') {
+          console.log(this.getAlerts);
+          this.hasAlerts = true;
+        } else {
+          this.hasAlerts = false;
+        }
+      },
       closeAlertsPanel() {
         this.showAlertsPanel = false;
       },
@@ -106,12 +115,11 @@
       }
     },
     computed: {
-      theCurrentLocation() {
-        return this.$store.state.currentLocation;
-      },
-      theCurrentWeather() {
-        return this.$store.state.currentWeather;
-      },
+      ...mapGetters(['getAlerts']),
+      ...mapState(['currentLocation', 'currentWeather']),
+    },
+    mounted() {
+      this.hasAlertsData();
     },
   };
 </script>

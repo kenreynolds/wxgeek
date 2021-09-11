@@ -1,7 +1,7 @@
 <template>
   <section class="daily-forecast">
     <DayForecast
-      v-for="(day, i) in theDailyForecast"
+      v-for="(day, i) in dailyForecasts"
       :day="day"
       :key="i"
     ></DayForecast>
@@ -9,6 +9,7 @@
 </template>
 
 <script>
+  import { mapGetters } from 'vuex';
   import DayForecast from '@/components/weather/DayForecast';
 
   export default {
@@ -17,9 +18,7 @@
       DayForecast,
     },
     computed: {
-      theDailyForecast() {
-        return this.$store.getters.dailyForecasts;
-      }
+      ...mapGetters(['dailyForecasts']),
     },
   }
 </script>

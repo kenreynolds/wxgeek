@@ -26,6 +26,7 @@ const getCurrentCoordinates = () => {
 
 export default createStore({
   state: {
+    alertsData: [],
     dailyForecastData: [],
     hourlyForecastData: [],
     isLoading: true,
@@ -58,6 +59,9 @@ export default createStore({
     },
   },
   mutations: {
+    GET_ALERTS(state, payload) {
+      state.alertsData = payload;
+    },
     GET_CURRENT_LOCATION(state, payload) {
       state.currentLocation = {
         lat: payload.lat,
@@ -125,6 +129,7 @@ export default createStore({
               && weatherResponse.length !== 0
               && airPollutionResponse !== 0
             ) {
+              commit('GET_ALERTS', weatherResponse.data.alerts);
               commit('GET_CURRENT_LOCATION', geoResponse.data[0]);
               commit('GET_AIR_QUALITY', airPollutionResponse.data.list[0]);
               commit('GET_DAILY_FORECAST', weatherResponse.data.daily);
@@ -139,6 +144,13 @@ export default createStore({
     },
   },
   getters: {
+    getAlerts: state => {
+      if (state.alertsData.length > 0) {
+        return state.alertsData;
+      } else {
+        return 'No alerts';
+      }
+    },
     conditionIcon: state => {
       const currentHour = dayjs().format('HH');
       if (currentHour > 6 && currentHour < 20) {
