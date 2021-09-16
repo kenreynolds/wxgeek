@@ -6,8 +6,9 @@
       <PageHeader />
       <CurrentConditions />
       <AstronomicalConditions />
-      <OtherObservations />
     </section>
+
+    <OtherObservations />
 
     <AirQuality
       :airQuality="currentAirQuality.airQualityIndex"
@@ -131,7 +132,7 @@
 
     > .current-conditions {
       background-color: #fff;
-      box-shadow: 0 4px 8px rgba(51, 51, 51, 0.5);
+      box-shadow: 0 4px 8px rgba(51, 51, 51, 0.25);
       color: #757575;
       display: flex;
       flex-direction: column;
@@ -139,6 +140,7 @@
       margin: 0;
       padding: 1rem;
       position: relative;
+      transition: all 0.3s ease-in-out;
       width: 100%;
       z-index: 10;
     }
