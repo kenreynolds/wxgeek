@@ -6,9 +6,9 @@
       <PageHeader />
       <CurrentConditions />
       <AstronomicalConditions />
+      <OtherObservations />
     </section>
 
-    <OtherObservations />
 
     <AirQuality
       :airQuality="currentAirQuality.airQualityIndex"

@@ -138,9 +138,7 @@
 
   .observations {
     background-color: white;
-    box-shadow: 0 4px 8px rgba(51, 51, 51, 0.5);
     margin: 0 auto;
-    padding-bottom: 1rem;
     position: relative;
     transition: all 0.5s ease-in-out;
     width: 100%;

@@ -38,13 +38,14 @@
 <style lang="scss" scoped>
   .sun-data {
     align-items: center;
+    border-bottom: 1px solid #e0e0e0;
     display: flex;
     font-size: 0.875rem;
     justify-content: space-between;
     margin: 0 auto;
     max-width: 325px;
     min-width: 275px;
-    padding: 3rem 0.5rem 0.5rem;
+    padding: 3rem 0.5rem 0.75rem;
 
     > .sunrise,
     > .sunset {

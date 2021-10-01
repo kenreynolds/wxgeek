@@ -1,0 +1,232 @@
+{
+  "lat": 32.7455,
+  "lon": -97.0035,
+  "timezone": "America/Chicago",
+  "timezone_offset": -18000,
+  "current": {
+    "dt": 1632365957,
+    "sunrise": 1632312981,
+    "sunset": 1632356696,
+    "temp": 67.55,
+    "feels_like": 66.02,
+    "pressure": 1021,
+    "humidity": 43,
+    "dew_point": 44.29,
+    "uvi": 0,
+    "clouds": 0,
+    "visibility": 10000,
+    "wind_speed": 6.49,
+    "wind_deg": 77,
+    "wind_gust": 13,
+    "weather": [
+      {
+        "id": 800,
+        "main": "Clear",
+        "description": "clear sky",
+        "icon": "01n"
+      }
+    ]
+  },
+  "hourly": [
+    {
+      "dt": 1632362400,
+      "temp": 69.51,
+      "feels_like": 67.95,
+      "pressure": 1021,
+      "humidity": 38,
+      "dew_point": 42.82,
+      "uvi": 0,
+      "clouds": 0,
+      "visibility": 10000,
+      "wind_speed": 4.16,
+      "wind_deg": 31,
+      "wind_gust": 9.4,
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01n"
+        }
+      ],
+      "pop": 0
+    },
+    {
+      "dt": 1632366000,
+      "temp": 67.55,
+      "feels_like": 66.02,
+      "pressure": 1021,
+      "humidity": 43,
+      "dew_point": 44.29,
+      "uvi": 0,
+      "clouds": 0,
+      "visibility": 10000,
+      "wind_speed": 6.49,
+      "wind_deg": 77,
+      "wind_gust": 13,
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01n"
+        }
+      ],
+      "pop": 0
+    },
+    {
+      "dt": 1632369600,
+      "temp": 68.9,
+      "feels_like": 67.32,
+      "pressure": 1021,
+      "humidity": 39,
+      "dew_point": 42.96,
+      "uvi": 0,
+      "clouds": 0,
+      "visibility": 10000,
+      "wind_speed": 6.87,
+      "wind_deg": 104,
+      "wind_gust": 14.65,
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01n"
+        }
+      ],
+      "pop": 0
+    }
+  ],
+  "daily": [
+    {
+      "dt": 1632333600,
+      "sunrise": 1632312981,
+      "sunset": 1632356696,
+      "moonrise": 1632361080,
+      "moonset": 1632318180,
+      "moon_phase": 0.56,
+      "temp": {
+        "day": 79,
+        "min": 66.94,
+        "max": 81.79,
+        "night": 68.9,
+        "eve": 74.77,
+        "morn": 66.94
+      },
+      "feels_like": {
+        "day": 79,
+        "night": 67.32,
+        "eve": 73.26,
+        "morn": 65.07
+      },
+      "pressure": 1025,
+      "humidity": 21,
+      "dew_point": 36.5,
+      "wind_speed": 12.59,
+      "wind_deg": 28,
+      "wind_gust": 25.39,
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01d"
+        }
+      ],
+      "clouds": 0,
+      "pop": 0,
+      "uvi": 7.29
+    },
+    {
+      "dt": 1632420000,
+      "sunrise": 1632399419,
+      "sunset": 1632443014,
+      "moonrise": 1632449220,
+      "moonset": 1632408060,
+      "moon_phase": 0.59,
+      "temp": {
+        "day": 81.77,
+        "min": 66.79,
+        "max": 84.83,
+        "night": 76.91,
+        "eve": 82.85,
+        "morn": 66.79
+      },
+      "feels_like": {
+        "day": 79.59,
+        "night": 75.34,
+        "eve": 80.33,
+        "morn": 64.58
+      },
+      "pressure": 1019,
+      "humidity": 17,
+      "dew_point": 33.42,
+      "wind_speed": 6.2,
+      "wind_deg": 168,
+      "wind_gust": 14.67,
+      "weather": [
+        {
+          "id": 800,
+          "main": "Clear",
+          "description": "clear sky",
+          "icon": "01d"
+        }
+      ],
+      "clouds": 1,
+      "pop": 0,
+      "uvi": 7.42
+    },
+    {
+      "dt": 1632506400,
+      "sunrise": 1632485858,
+      "sunset": 1632529332,
+      "moonrise": 1632537420,
+      "moonset": 1632497820,
+      "moon_phase": 0.62,
+      "temp": {
+        "day": 83.01,
+        "min": 67.98,
+        "max": 86.74,
+        "night": 77.41,
+        "eve": 83.59,
+        "morn": 68
+      },
+      "feels_like": {
+        "day": 80.83,
+        "night": 76.23,
+        "eve": 81.14,
+        "morn": 66.38
+      },
+      "pressure": 1018,
+      "humidity": 25,
+      "dew_point": 43.32,
+      "wind_speed": 9.19,
+      "wind_deg": 170,
+      "wind_gust": 21.99,
+      "weather": [
+        {
+          "id": 803,
+          "main": "Clouds",
+          "description": "broken clouds",
+          "icon": "04d"
+        }
+      ],
+      "clouds": 63,
+      "pop": 0,
+      "uvi": 6.74
+    }
+  ],
+  "alerts": [
+    {
+      "sender_name": "NWS Dallas-Fort Worth (Dallas - Forth Worth)",
+      "event": "Air Quality Alert",
+      "start": 1632341160,
+      "end": 1632438900,
+      "description": "...OZONE ACTION DAY...\nThe Texas Commission on Environmental Quality (TCEQ) has issued\nan Ozone Action Day for the Dallas-Fort Worth area for Thursday,\nSeptember 23, 2021.\nAtmospheric conditions are expected to be favorable for producing\nhigh levels of ozone air pollution in the Dallas-Fort Worth area\non Thursday. You can help prevent ozone pollution by sharing a\nride, walking, riding a bicycle, taking your lunch to work,\navoiding drive-through lanes, conserving energy, and keeping your\nvehicle properly tuned.\nFor more information on ozone:\nOzone: The Facts (www.tceq.texas.gov/goto/ozonefacts)\nAir North Texas: (www.airnorthtexas.org)\nEPA Air Now\n(www.airnow.gov/index.cfm?action.local_state&STATEID=45&TAB=0)\nTake care of Texas (www.takecareoftexas.org)\nNorth Central Texas Council of Governments Air Quality\n(www.nctcog.org/trans/air/index.asp)",
+      "tags": [
+        "Air quality"
+      ]
+    }
+  ]
+}

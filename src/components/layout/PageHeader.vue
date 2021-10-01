@@ -173,7 +173,7 @@
   .alerts-panel,
   .settings-menu {
     background-color: white;
-    box-shadow: 0 4px 8px #9e9e9e;
+    box-shadow: 0 4px 8px rgba(51, 51, 51, 0.25);
     height: 100%;
     left: 0;
     padding: 1rem;
